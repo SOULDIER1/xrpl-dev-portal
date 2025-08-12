@@ -10,9 +10,7 @@ This tutorial demonstrates the structure of a **[tutorial](./tutorial-guidelines
 - Recommendations for code samples and usage
 - Options and variations
 
-You may also want to add a small amount of additional context of _why_ or _when_ you would want to do these things. Don't go overboard—leave the details for concept or use case articles.
-
-The template should begin with an intro that states what the tutorial is about and has a "backlink" to the conceptual documentation for the core concepts/features that the tutorial demonstrates.
+The template should begin with an intro that states what the tutorial is about. The intro should have one or more "backlinks" to the conceptual documentation for the core concepts/features that the tutorial demonstrates. You may also want to add a small amount of additional context of _why_ or _when_ you would want to do whatever this tutorial does. Don't go overboard—leave the details for concept or use case articles.
 
 ## Goals
 
@@ -61,9 +59,14 @@ npm run start
 Then, navigate to <http://localhost:4000/resources/contribute-documentation/tutorial-structure> to view the parsed version of this page.
 
 {% admonition type="info" name="Usage is optional" %}
-You should include a Usage section in **sample app tutorials**, including commandline utilities that have multiple options, or multiple scripts that need to be run in a specific order. If there's a user interface, you can also embed a video demonstrating usage of the sample app.
+You should include a Usage section in **sample app tutorials**. Provide a "Usage" section if this tutorial's sample code:
+- Has a GUI with multiple buttons/inputs
+- Is a commandline utility with multiple options/parameters
+- Consists of multiple scripts that need to be run in a specific order
 
-For single-file code samples that perform a linear set of steps, you can omit the Usage section.
+If there's a user interface, you can also embed a video demonstrating usage of the sample app.
+
+For single-file scripts that perform a linear set of steps without user input, omit the Usage section.
 {% /admonition %}
 
 ## Steps
@@ -91,20 +94,9 @@ pip install -r requirements.txt
 {% /tab %}
 {% /tabs %}
 
-{% admonition type="warning" name="Dependencies and maintenance burden" %}
-Dependencies can be a source of maintenance burden, as you need to keep updating them to stay up-to-date with security fixes and breaking changes to the dependencies. On the other hand, reimplementing common utilities in every code sample is its own maintenance burden, and it's even worse to "roll your own" security-sensitive code. Some users may being working on codebases that are locked into competing/incompatible dependencies, which can make it harder to adapt your code to their situation; the more dependencies you have, the more likely this is to occur. 
+### Connect and get account(s)
 
-Some guidelines:
-
-1. Prefer standard library functions to third-party libraries, even if they're not quite as convenient to use.
-    - When updating code samples, look for cases where dependencies can be eliminated because the standard library has grown to encompass functionality that previously needed a library.
-2. Implement your own functions when they're small and not security-sensitive; use libraries for complex or security-sensitive functions.
-3. Prefer widely-used, actively maintained libraries.
-{% /admonition %}
-
-### 1. Connect and get account(s)
-
-Each step should be numbered and the heading for the step should be an imperative sentence, in sentence case. Beneath the heading should be a sentence or two introducing the action being taken at this stage of the code sample in more detail. The code samples should be in tabs per programming language.
+Each step should have a heading in the imperative, in sentence case. **Do not number headings:** it makes maintenance harder, and can make things more complicated if different languages have different numbers of steps. Beneath the heading should be a sentence or two introducing the action being taken at this stage of the code sample in more detail. The code samples should be in tabs per programming language.
 
 Most code samples need at least one account. The first step should generally cover from the start of the file (including imports) through instantiating a client, connecting to a network, and deriving wallets and/or funding accounts via the faucet.
 
@@ -120,9 +112,9 @@ Most code samples need at least one account. The first step should generally cov
 Each "step" of the tutorial should correspond to one code snippet (with tabs by programming language). There can be exceptions, for example if one programming language needs additional code in a separate place to make the same functionality work.
 {% /admonition %}
 
-### 2. Next step
+### Check for on-ledger structures
 
-Each additional step should directly continue the code sample from the previous step without skipping anything, to the extent possible. If the code snippet calls an API method, link to the relevant reference documentation. If you include the common links file, you can generally do this with an automatic link such as the `[account_info method][]`, which turns into the [account_info method][].
+If a script depends on certain ledger data already existing (for example, you are supposed to create it with a different script), the script should have an explicit step to check for the existence of that data. You should also mention the requirement in the [**Prerequisites**](#prerequisites) section.
 
 {% tabs %}
 
@@ -132,16 +124,39 @@ Each additional step should directly continue the code sample from the previous 
 
 {% /tabs %}
 
-Optionally, you can provide additional text after the code snippet, such as an explanation of the expected output from this step, or details that you should note down for later.
+### Next step
 
-### 3. Additional steps as necessary
-
-Use `{% code-snippet ... %}` tags instead of copy-paste to display the code samples, so that you don't have to manually keep the code in the doc synchronized with changes to the code sample. To facilitate this, use `from=` and `before=` strings based on unique comments in the code.
+Each additional step should directly continue the code sample from the previous step without skipping anything, to the extent possible. 
 
 {% tabs %}
 
 {% tab label="JavaScript" %}
 {% code-snippet file="/_code-samples/verify-credential/js/verify_credential.js" language="js" from="// Check if the credential has been accepted" before="// Confirm that the credential is not expired" /%}
+{% /tab %}
+
+{% /tabs %}
+
+Optionally, you can provide additional text after the code snippet, such as an explanation of the expected output from this step, or details that you should note down for later.
+
+### Additional steps as necessary
+
+If the code snippet calls an API method, link to the relevant reference documentation. If you include the common links file, you can generally do this with an automatic link such as the `[ledger method][]`, which turns into the [ledger method][].
+
+{% tabs %}
+
+{% tab label="JavaScript" %}
+{% code-snippet file="/_code-samples/verify-credential/js/verify_credential.js" language="js" from="// Confirm that the credential is not expired" before="// Credential has passed all checks" /%}
+{% /tab %}
+
+{% /tabs %}
+### Final step
+
+Use `{% code-snippet ... %}` tags instead of copy-paste to display the code samples, so that you don't have to manually keep the code in the doc synchronized with changes to the code sample. To facilitate this, use `from=` and `before=` strings based on unique comments in the code. The first code snippet should omit `from=` and the last should omit `before=`.
+
+{% tabs %}
+
+{% tab label="JavaScript" %}
+{% code-snippet file="/_code-samples/verify-credential/js/verify_credential.js" language="js" from="// Credential has passed all checks" /%}
 {% /tab %}
 
 {% /tabs %}
