@@ -93,6 +93,7 @@ The following guidelines apply for XRP Ledger code samples regardless of languag
 - Don't hardcode secret keys, even example keys that don't hold real money. Instead, do any of the following:
     - Fund a new account using the faucet.
     - Prompt the user to paste the seed of the account they want to use.
+    - Read the secret key from an environment variable.
 - Use `client` as the name for the API client instance.
 - Print output to the console, especially before doing any network operations such as calling API methods or submitting transactions.
 - Use the client library's "submit and wait" function when sending transactions. Autofill, sign, and submit the transaction all in one call.
