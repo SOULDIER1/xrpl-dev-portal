@@ -62,7 +62,7 @@ Use comments to separate out logical sections of the sample code. You can these 
 
 Sample code can take many forms, such as the following:
 
-- **Sample Application** - A fully functional program that accepts user input to perform tasks with some flexibility. It may have a graphical user interface or only a commandline interface. Complete sample code for different stages of application development may or may not be provided.
+- **Sample Application** - A fully functional program that accepts user input to perform tasks with some flexibility. It may have a graphical user interface or only a commandline interface. Complete sample code for different stages of application development may be provided, but is not recommended because it's more work than it's worth.
 - **Script** - A simple program that performs a predetermined set of tasks, often using hard-coded values, with minimal branching. These scripts are not expected to perform robust error handling; they typically exit when an error occurs.
 - **Snippet** - A self-contained function or piece of code that demonstrates the best practices for doing one thing, but is not a complete program. Snippets are most likely to _not_ have an associated tutorial.
 
@@ -72,7 +72,15 @@ All three types of sample code have their time and place. However, for most of t
 - You can run a script to demonstrate that it works and is accurate.
 - Scripts are easier to create and have a lesser maintenance burden than more complex apps.
 
+### JSON-RPC / WebSocket / Commandline Examples as Sample Code
 
+Some legacy tutorials show example requests and responses using WebSocket or JSON-RPC APIs, sometimes using the `rippled` commandline. These are not recommended, for the following reasons:
+
+- People (or LLMs) who copy these formats tend to end up submitting their secret keys to public servers, which is extremely insecure.
+- Many tutorials involve steps where you need application logic that can't be represented in API requests/responses. You end up with code in other programming languages anyway, or pseudocode, or just steps that are missing examples of how to do critical work.
+- The API references already do (and should continue) to provide examples in these formats.
+
+If you do have good reason to provide commandline, WebSocket, or JSON-RPC examples, show both the request and an example response in separate code blocks.
 
 ### Dependencies
 
