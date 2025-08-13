@@ -71,9 +71,11 @@ For single-file scripts that perform a linear set of steps without user input, o
 
 ## Steps
 
-Follow these steps to build a tutorial.
+Follow these steps to build a tutorial. Number the steps, because they help to orient readers to the structure and serve to identify the core part of the tutorial.
 
-### Install Dependencies
+If you change the number or order of steps, remember to update the step numbers and update any links or mentions of specific steps, too.
+
+### 1️1. Install dependencies
 
 Unlike the ones in Prerequisites, this step is for dependencies that are specific to this tutorial. They're here because people tend to gloss over the preamble parts and skip straight to the "meat" of the tutorial.
 
@@ -94,9 +96,9 @@ pip install -r requirements.txt
 {% /tab %}
 {% /tabs %}
 
-### Connect and get account(s)
+### 2. Connect and get account(s)
 
-Each step should have a heading in the imperative, in sentence case. **Do not number headings:** it makes maintenance harder, and can make things more complicated if different languages have different numbers of steps. Beneath the heading should be a sentence or two introducing the action being taken at this stage of the code sample in more detail. The code samples should be in tabs per programming language.
+Each step should have a heading in the imperative, in sentence case. Beneath the heading should be a sentence or two introducing the action being taken at this stage of the code sample in more detail. The code samples should be in tabs per programming language.
 
 Most code samples need at least one account. The first step should generally cover from the start of the file (including imports) through instantiating a client, connecting to a network, and deriving wallets and/or funding accounts via the faucet.
 
@@ -112,7 +114,7 @@ Most code samples need at least one account. The first step should generally cov
 Each "step" of the tutorial should correspond to one code snippet (with tabs by programming language). There can be exceptions, for example if one programming language needs additional code in a separate place to make the same functionality work.
 {% /admonition %}
 
-### Check for on-ledger structures
+### 3. Check for on-ledger structures
 
 If a script depends on certain ledger data already existing (for example, you are supposed to create it with a different script), the script should have an explicit step to check for the existence of that data. You should also mention the requirement in the [**Prerequisites**](#prerequisites) section.
 
@@ -124,7 +126,7 @@ If a script depends on certain ledger data already existing (for example, you ar
 
 {% /tabs %}
 
-### Next step
+### 4. Add next step
 
 Each additional step should directly continue the code sample from the previous step without skipping anything, to the extent possible. 
 
@@ -138,7 +140,7 @@ Each additional step should directly continue the code sample from the previous 
 
 Optionally, you can provide additional text after the code snippet, such as an explanation of the expected output from this step, or details that you should note down for later.
 
-### Additional steps as necessary
+### 5. Use as many steps as necessary
 
 If the code snippet calls an API method, link to the relevant reference documentation. If you include the common links file, you can generally do this with an automatic link such as the `[ledger method][]`, which turns into the [ledger method][].
 
@@ -149,7 +151,12 @@ If the code snippet calls an API method, link to the relevant reference document
 {% /tab %}
 
 {% /tabs %}
-### Final step
+
+{% admonition type="success" name="The right number of steps" %}
+Most tutorials should have 3-7 steps. If the tutorial has fewer, maybe it doesn't need to be a tutorial, or maybe you should go into more detail. If it has more, consider splitting it into multiple tutorials.
+{% /admonition %}
+
+### 6. Final step
 
 Use `{% code-snippet ... %}` tags instead of copy-paste to display the code samples, so that you don't have to manually keep the code in the doc synchronized with changes to the code sample. To facilitate this, use `from=` and `before=` strings based on unique comments in the code. The first code snippet should omit `from=` and the last should omit `before=`.
 
@@ -164,6 +171,5 @@ Use `{% code-snippet ... %}` tags instead of copy-paste to display the code samp
 ## See Also
 
 At the end of the tutorial, provide links to additional resources that would be a sensible next step in the learning journey. This could be more tutorials, use cases, or other pages. It's also a good idea to add links here to reference documentation for any API methods, transaction types, and ledger entries used in the tutorial—even though those links should be redundant with links scattered throughout the text of the tutorial.
-
 
 {% raw-partial file="/docs/_snippets/common-links.md" /%}
