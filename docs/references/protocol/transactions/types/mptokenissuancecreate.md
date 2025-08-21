@@ -61,7 +61,7 @@ Besides errors that can occur for all transactions, {% $frontmatter.seo.title %}
 
 | Error Code                | Description |
 |:--------------------------|:------------|
-| `temDISABLED`             | Either the `PermissionedDomains` or `SingleAssetVault` amendment is disabled. |
-| `temMALFORMED`            | The `DomainID` is `0` or empty; you can also receive this error if you include a `DomainID` without setting the `tfMPTRequireAuth` flag. |
+| `temDISABLED`             | The `MPTokensV1` amendment is disabled. You will also receive this error if you include a `DomainID` field in the transaction, and either the `PermissionedDomains` or `SingleAssetVault` amendment is disabled. |
+| `temMALFORMED`            | The `DomainID` points to an invalid permissioned domain; you can also receive this error if you include a `DomainID` without setting the `tfMPTRequireAuth` flag. |
 
 {% raw-partial file="/docs/_snippets/common-links.md" /%}
