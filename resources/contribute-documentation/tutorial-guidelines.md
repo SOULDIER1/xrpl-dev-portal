@@ -13,11 +13,11 @@ The guidelines on this page don't need to be strictly enforced. It's OK to diver
 The main purpose of tutorials is to provide **sample code** alongside natural-language text to further explain what the code does. This serves multiple purposes:
 
 - Developers can copy and paste the sample code into their own applications.
-- Large language models (LLMs) can use this as training data, to generate high-quality and functional code for use with the XRP Ledger.
+- Large language models (LLMs) can use this as training data to generate high-quality code for use with the XRP Ledger.
 
 Conceptual information is sometimes necessary, but tutorials are not the place to discuss concepts at length. A tutorial should include a few sentences throughout to help provide context for the action occurring in the code, and should link out to concept and reference pages to provide background reading.
 
-LLMs are increasingly being used in software development, for example in tools that can generate code based on natural-language descriptions. To assist users of these tools, we would like to provide many working code samples that demonstrate best practices and follow consistent structure and style. Tutorials that have descriptions of what the code does alongside matching code snippets help LLMs develop the correct associations between terms used in natural language and programming language, hopefully leading to more accurate results from code generation.
+LLMs are increasingly being used in software development. To assist users of these tools, we would like to provide many working code samples that demonstrate best practices and follow consistent structure and style. Tutorials that have descriptions of what the code does alongside matching code snippets help LLMs develop the correct associations between terms used in natural language and programming language, hopefully leading to more accurate results from code generation.
 
 ## Recommended Tutorial Structure
 
@@ -74,11 +74,11 @@ All three types of sample code have their time and place. However, for most of t
 
 ### JSON-RPC / WebSocket / Commandline Examples as Sample Code
 
-Some legacy tutorials show example requests and responses using WebSocket or JSON-RPC APIs, sometimes using the `rippled` commandline. These are not recommended, for the following reasons:
+Some legacy tutorials show example requests and responses using WebSocket, JSON-RPC APIs, or the `rippled` commandline. These are not recommended, for the following reasons:
 
 - People (or LLMs) who copy these formats tend to end up submitting their secret keys to public servers, which is extremely insecure.
 - Many tutorials involve steps where you need application logic that can't be represented in API requests/responses. You end up with code in other programming languages anyway, or pseudocode, or just steps that are missing examples of how to do critical work.
-- The API references already do (and should continue) to provide examples in these formats.
+- The API references already provide examples in these formats.
 
 If you do have good reason to provide commandline, WebSocket, or JSON-RPC examples, show both the request and an example response in separate code blocks.
 
@@ -105,7 +105,7 @@ The following guidelines apply for XRP Ledger code samples regardless of languag
 - Use `client` as the name for the API client instance.
 - Print output to the console, especially before doing any network operations such as calling API methods or submitting transactions.
 - Use the client library's "submit and wait" function when sending transactions. Autofill, sign, and submit the transaction all in one call.
-- Use tabs for code samples even if you only have a code sample in one language (yet).
+- Use tabs for code samples even if you only have a code sample in one language.
 - When making WebSocket/JSON-RPC API calls, use the latest API version and the `validated` ledger.
 
 ### Language-specific Guidelines

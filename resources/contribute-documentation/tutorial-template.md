@@ -14,23 +14,12 @@ The template should begin with an intro that states what the tutorial is about. 
 
 ## Goals
 
-By following this template, you should be able to:
-
-- Create tutorials in a style that's consistent with the rest of the site.
-- Remember to include all the important parts of a tutorial, and minimize digressions.
-- Provide sample code that both humans and machines can copy and adapt for their purposes, with enough context to help them do so.
-
-If the tutorial includes a graphical interface, include a screenshot of the final product here.
+This section defines the learning goals of the tutorial:
+- Bullet points are a succinct way of outlining learning steps.
+- If the tutorial includes a graphical interface, include a screenshot of the final product here.
 
 ## Prerequisites
 
-To complete this tutorial, you should meet the following guidelines:
-
-- You have a local clone of the [xrpl-dev-portal](https://github.com/XRPLF/xrpl-dev-portal/) git repository.
-- You have an appropiate text/code editor installed, such as [Visual Studio Code](https://code.visualstudio.com/).
-- You are familiar with the [Contribution and Style Guidelines](./index.md) for XRPL Documentation.
-
-{% admonition type="info" name="About prerequisites" %}
 Prerequisites can take several forms: 
 
 - Knowledge and learning background, especially tutorials that this one builds on top of.
@@ -38,7 +27,6 @@ Prerequisites can take several forms:
     - Do not include dependencies that are specific to this tutorial here, because people tend to skim/gloss over this section. For dependencies specific to this tutorial, include them in the steps later.
 - Specific on-chain structures that need to be in place in advance. For example, to trade against an AMM, the AMM must exist in the ledger.
 - Amendments that need to be enabled for this tutorial. Use an amendment disclaimer component to show the Mainnet status of the amendment.
-{% /admonition %}
 
 ## Source Code
 
