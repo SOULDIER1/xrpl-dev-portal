@@ -42,70 +42,82 @@ npm i
 {% /tab %}
 {% /tabs %}
 
-### 2. Import dependencies and define main function
+### 2. Set up client and account
 
-After importing the XRPL client library, the tutorial code defines the main function which controls the flow of the script. This function does several things:
-
-1. Connect to the network and get a new wallet from the testnet faucet.
-2. Define the properties of the escrow as hard-coded constants.
-3. Use helper functions to create the escrow, wait for it to be ready, and then finish it. These functions are defined later in the file.
-4. Disconnect from the network when done.
+To get started, import the client library and instantiate an API client. For this tutorial, you also need one account, which you can get from the faucet.
 
 {% tabs %}
 {% tab label="JavaScript" %}
-{% code-snippet file="/_code-samples/escrow/js/send-timed-escrow.js" language="js" before="/* send_timed_escrow" /%}
+{% code-snippet file="/_code-samples/escrow/js/send-timed-escrow.js" language="js" before="// Set the escrow finish time" /%}
 {% /tab %}
 {% /tabs %}
 
-### 3. Create the escrow
+### 3. Calculate the finish time
 
-Next, the `send_timed_escrow(...)` function implements the following:
-
-1. Calculate the maturity time of the escrow (when it should be possible to finish it), and convert it to the correct format ([seconds since the Ripple Epoch][]).
-    {% admonition type="danger" name="Warning" %}If you use a UNIX time in the `FinishAfter` field without converting to the equivalent Ripple time first, that sets the unlock time to an extra **30 years** in the future!{% /admonition %}
-2. Construct an [EscrowCreate transaction][].
-    {% admonition type="info" name="Note" %}If you are sending a token escrow, you must also add an expiration time in the `CancelAfter` field, in the same time format. This time must be after the maturity time.{% /admonition %}
-3. Submit the transaction to the network and wait for it to be validated by consensus.
-4. Return the details of the escrow, particularly the autofilled sequence number. You need this sequence number to identify the escrow in later transactions.
+To make a timed escrow, you need to set the maturity time of the escrow, which is a timestamp after which the escrow can be finished, formatted as [seconds since the Ripple Epoch][]. You can calculate the maturity time by adding a delay to the current time and then using the client library's conversion function. The sample code uses a delay of 30 seconds:
 
 {% tabs %}
 {% tab label="JavaScript" %}
-{% code-snippet file="/_code-samples/escrow/js/send-timed-escrow.js" language="js" from="/* send_timed_escrow" before="/* wait_for_escrow" /%}
+{% code-snippet file="/_code-samples/escrow/js/send-timed-escrow.js" language="js" from="// Set the escrow finish time" before="// Send EscrowCreate transaction" /%}
+{% /tab %}
+{% /tabs %}
+
+{% admonition type="danger" name="Warning" %}If you use a UNIX time without converting to the equivalent Ripple time first, that sets the maturity time to an extra **30 years** in the future!{% /admonition %}
+
+If you want your escrow to have an expiration time, after which it can only be canceled, you can calculate it the same way.
+
+### 4. Create the escrow
+
+To send the escrow, construct an [EscrowCreate transaction][] and then submit it to the network. The fields of this transaction define the properties of the escrow. The sample code uses hard-coded values to send 0.123456 XRP back to the Testnet faucet:
+
+{% tabs %}
+{% tab label="JavaScript" %}
+{% code-snippet file="/_code-samples/escrow/js/send-timed-escrow.js" language="js" from="// Send EscrowCreate transaction" before="// Save the sequence number" /%}
+
+{% admonition type="info" name="Note" %}To give the escrow an expiration time, add a `CancelAfter` field to the transaction. An expiration time is optional for timed XRP escrows but required for token escrows. This time must be after the maturity time.{% /admonition %}
+
+Save the sequence number of the EscrowCreate transaction. (In this example, the sequence number is autofilled.) You need this sequence number to identify the escrow when you want to finish (or cancel) it later.
+
+{% code-snippet file="/_code-samples/escrow/js/send-timed-escrow.js" language="js" from="// Save the sequence number" before="// Wait for the escrow" /%}
 {% /tab %}
 {% /tabs %}
 
 
-### 4. Wait for the escrow
+### 5. Wait for the escrow
 
-The `wait_for_escrow(...)` function implements the following:
+With the escrow successfully created, the funds are now locked up until the maturity time. Since this tutorial used a delay of 30 seconds, have the script sleep for that long:
+
+{% tabs %}
+{% tab label="JavaScript" %}
+{% code-snippet file="/_code-samples/escrow/js/send-timed-escrow.js" language="js" from="// Wait for the escrow" before="/* Sleep function" /%}
+
+JavaScript doesn't have a native `sleep(...)` function, but you can implement one to be used with `await`, as a convenience:
+
+{% code-snippet file="/_code-samples/escrow/js/send-timed-escrow.js" language="js" from="/* Sleep function" before="// Check if escrow can be finished" /%}
+{% /tab %}
+{% /tabs %}
+
+At this point, the escrow should be mature, but that depends on the official close time of the previous ledger. Ledger close times can vary based on the consensus process, and [are rounded](../../../../concepts/ledgers/ledger-close-times.md) by up to 10 seconds. To account for this variance, use an approach such as the following:
 
 1. Check the official close time of the most recent validated ledger.
-2. Wait a number of seconds based on the difference between that close time and the time when the escrow is ready to be finished.
-3. Repeat until the escrow is ready. The actual, official close time of ledgers [is rounded](../../../../concepts/ledgers/ledger-close-times.md) by up to 10 seconds, so there is some variance in how long it actually takes for an escrow to be ready.
+2. Wait a number of seconds based on the difference between that close time and the maturity time of the escrow.
+3. Repeat until the escrow is mature. 
 
 {% tabs %}
 {% tab label="JavaScript" %}
-{% code-snippet file="/_code-samples/escrow/js/send-timed-escrow.js" language="js" from="/* wait_for_escrow" before="/* Sleep function" /%}
-
-Additionally, since JavaScript doesn't have a native `sleep(...)` function, the sample code implements one to be used with `await`, as a convenience:
-
-{% code-snippet file="/_code-samples/escrow/js/send-timed-escrow.js" language="js" from="/* Sleep function" before="/* finish_escrow" /%}
-
+{% code-snippet file="/_code-samples/escrow/js/send-timed-escrow.js" language="js" from="// Check if escrow can be finished" before="// Send EscrowFinish transaction" /%}
 {% /tab %}
 {% /tabs %}
 
-### 5. Finish the escrow
+### 6. Finish the escrow
 
-The `finish_escrow(...)` function implements the following:
+Now that the escrow is mature, you can finish it. Construct an [EscrowFinish transaction][], using the sequence number that you recorded when you created the escrow, then submit it to the network.
 
-1. Construct an [EscrowFinish transaction][], using the sequence number recorded when the escrow was created.
-    {% admonition type="success" name="Tip" %}Anyone can finish a timed escrow when it is ready. Regardless of who does so—the sender, receiver, or even a third party—the escrow delivers the funds to its intended recipient.{% /admonition %}
-2. Submit the transaction to the network and wait for it to be validated by consensus.
-3. Display the details of the validated transaction.
+{% admonition type="success" name="Tip" %}Anyone can finish a timed escrow when it is ready. Regardless of who does so—the sender, receiver, or even a third party—the escrow delivers the funds to its intended recipient.{% /admonition %}
 
 {% tabs %}
 {% tab label="JavaScript" %}
-{% code-snippet file="/_code-samples/escrow/js/send-timed-escrow.js" language="js" from="/* finish_escrow" /%}
+{% code-snippet file="/_code-samples/escrow/js/send-timed-escrow.js" language="js" from="// Send EscrowFinish transaction" /%}
 {% /tab %}
 {% /tabs %}
 
