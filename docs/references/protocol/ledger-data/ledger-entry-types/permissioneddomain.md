@@ -1,16 +1,17 @@
 ---
 seo:
-    description: A PermissionedDomain ledger entry represents a Permissioned Domain, which is used to limit access to other features.
+    description: A permissioned domain, which is used to limit access to other features.
 labels:
   - Compliance
   - Permissioned Domains
+status: not_enabled
 ---
 # PermissionedDomain
 [[Source]](https://github.com/XRPLF/rippled/blob/master/include/xrpl/protocol/detail/ledger_entries.macro#L451-L461 "Source")
 
 A `PermissionedDomain` ledger entry describes a single [permissioned domain][] instance. You can create a permissioned domain by sending a [PermissionedDomainSet transaction][].
 
-_(Requires the [PermissionedDomains amendment][] {% not-enabled /%})_
+{% amendment-disclaimer name="PermissionedDomains" /%}
 
 
 ## Example {% $frontmatter.seo.title %} JSON
@@ -77,5 +78,10 @@ The ID of a {% code-page-name /%} entry is the [SHA-512Half][] of the following 
 0. The AccountID of the {% code-page-name /%}'s owner.
 0. The Sequence number of the transaction that created the {% code-page-name /%}.
 
+## See Also
+
+- **Transactions:**
+  - [PermissionedDomainDelete transaction][]
+  - [PermissionedDomainSet transaction][]
 
 {% raw-partial file="/docs/_snippets/common-links.md" /%}

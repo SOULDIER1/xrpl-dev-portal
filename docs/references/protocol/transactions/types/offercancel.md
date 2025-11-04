@@ -1,16 +1,14 @@
 ---
-html: offercancel.html
-parent: transaction-types.html
 seo:
-    description: Withdraw a currency-exchange order.
+    description: Cancel an offer to trade in the decentralized exchange.
 labels:
-  - Decentralized Exchange
+    - Decentralized Exchange
 ---
 # OfferCancel
 
 [[Source]](https://github.com/XRPLF/rippled/blob/master/src/xrpld/app/tx/detail/CancelOffer.cpp "Source")
 
-An OfferCancel transaction removes an Offer object from the XRP Ledger.
+Cancel an [offer](../../../../concepts/tokens/decentralized-exchange/offers.md) to trade in the decentralized exchange.
 
 ## Example {% $frontmatter.seo.title %} JSON
 
@@ -37,5 +35,9 @@ An OfferCancel transaction removes an Offer object from the XRP Ledger.
 {% admonition type="success" name="Tip" %}To remove an old offer and replace it with a new one, you can use an [OfferCreate transaction][] with an `OfferSequence` parameter, instead of using OfferCancel and another OfferCreate.{% /admonition %}
 
 The OfferCancel method returns [`tesSUCCESS`](../transaction-results/tes-success.md) even if it did not find an offer with the matching sequence number.
+
+## See Also
+
+- [Offer entry][]
 
 {% raw-partial file="/docs/_snippets/common-links.md" /%}

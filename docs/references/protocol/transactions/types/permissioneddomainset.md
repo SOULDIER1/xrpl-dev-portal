@@ -1,16 +1,17 @@
 ---
 seo:
-    description: Create or update a Permissioned Domain.
+    description: Create or update a permissioned domain.
 labels:
-  - Compliance
-  - Permissioned Domains
+    - Compliance
+    - Permissioned Domains
+status: not_enabled
 ---
 # PermissionedDomainSet
 [[Source]](https://github.com/XRPLF/rippled/blob/master/src/xrpld/app/tx/detail/PermissionedDomainSet.cpp "Source")
 
 Create a [permissioned domain][], or modify one that you own.
 
-_(Requires the [PermissionedDomains amendment][] {% not-enabled /%})_
+{% amendment-disclaimer name="PermissionedDomains" /%}
 
 ## Example {% $frontmatter.seo.title %} JSON
 
@@ -61,5 +62,8 @@ Besides errors that can occur for all transactions, {% $frontmatter.seo.title %}
 | `tecNO_PERMISSION`        | The transaction attempted to modify an existing Domain, but the sender of the transaction is not the owner of the specified Domain. |
 | `temDISABLED`             | Either the `PermissionedDomains` amendment is not enabled, or the `Credentials` amendment is not enabled. |
 
+## See Also
+
+- [PermissionedDomain entry][]
 
 {% raw-partial file="/docs/_snippets/common-links.md" /%}

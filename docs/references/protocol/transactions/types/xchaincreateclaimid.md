@@ -1,23 +1,20 @@
 ---
-html: xchaincreateclaimid.html 
-parent: transaction-types.html
 seo:
     description: Create a cross-chain claim ID that is used for a cross-chain transfer.
 labels:
-  - Interoperability
+    - Interoperability
 status: not_enabled
 ---
 # XChainCreateClaimID
-[[Source]](https://github.com/XRPLF/rippled/blob/master/src/ripple/protocol/impl/TxFormats.cpp#L399-L406 "Source")
+[[Source]](https://github.com/XRPLF/rippled/blob/master/src/xrpld/app/tx/detail/XChainBridge.cpp "Source")
 
-_(Requires the [XChainBridge amendment][] {% not-enabled /%})_
-
-The `XChainCreateClaimID` transaction creates a new cross-chain claim ID that is used for a cross-chain transfer. A cross-chain claim ID represents *one* cross-chain transfer of value. 
+Create a new cross-chain claim ID that is used for a [cross-chain transfer](../../../../concepts/xrpl-sidechains/cross-chain-bridges.md). A cross-chain claim ID represents *one* cross-chain transfer of value. 
 
 This transaction is the first step of a cross-chain transfer of value and is submitted on the destination chain, not the source chain. 
 
 It also includes the account on the source chain that locks or burns the funds on the source chain.
 
+{% amendment-disclaimer name="XChainBridge" /%}
 
 ## Example XChainCreateClaimID JSON
 
@@ -41,7 +38,7 @@ It also includes the account on the source chain that locks or burns the funds o
 ```
 
 
-## XChainCreateClaimID Fields
+{% raw-partial file="/docs/_snippets/tx-fields-intro.md" /%}
 
 | Field              | JSON Type            | [Internal Type][] | Required? | Description |
 |:-------------------|:---------------------|:------------------|:----------|-------------|
@@ -58,5 +55,9 @@ It also includes the account on the source chain that locks or burns the funds o
 | `IssuingChainIssue` | Issue     | Issue             | Yes       | The asset that is minted and burned on the issuing chain. For an IOU-IOU bridge, the issuer of the asset must be the door account on the issuing chain, to avoid supply issues. |
 | `LockingChainDoor`  | String    | Account           | Yes       | The door account on the locking chain. |
 | `LockingChainIssue` | Issue     | Issue             | Yes       | The asset that is locked and unlocked on the locking chain. |
+
+## See Also
+
+- [XChainOwnedClaimID entry][]
 
 {% raw-partial file="/docs/_snippets/common-links.md" /%}

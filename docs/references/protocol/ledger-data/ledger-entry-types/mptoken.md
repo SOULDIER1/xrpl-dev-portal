@@ -1,13 +1,15 @@
 ---
-blurb: Describes the XRPL multi-purpose token object.
+seo:
+    description: Multi-Purpose Tokens (MPT) of one issuance held by a specific account.
 labels:
   - Multi-purpose Tokens, MPTs, Tokens
+status: not_enabled
 ---
 # MPToken
 
 An `MPToken` entry tracks [MPTs](../../../../concepts/tokens/fungible-tokens/multi-purpose-tokens.md) held by an account that is not the token issuer. You can create or delete an empty `MPToken` entry by sending an [MPTokenAuthorize transaction][]. You can send and receive MPTs using several other transaction types including [Payment][] and [OfferCreate][] transactions.
 
-_(Requires the [MPTokensV1 amendment][] {% not-enabled /%}.)_
+{% amendment-disclaimer name="MPTokensV1" /%}
 
 ## Example MPToken JSON
 
@@ -31,7 +33,7 @@ In addition to the [common fields](../common-fields.md), {% code-page-name /%} e
 | `Account`           | String - [Address][] | AccountID     | Yes       | The owner (holder) of these MPTs. |
 | `MPTokenIssuanceID` | String - Hexadecimal | UInt192       | Yes       | The `MPTokenIssuance` identifier. |
 | `MPTAmount`         | String - Number      | UInt64        | Yes       | The amount of tokens currently held by the owner. The minimum is 0 and the maximum is 2<sup>63</sup>-1. |
-| `LockedAmount`      | String - Number      | UInt64        | No        | The amount of tokens currently locked up (for example, in escrow or payment channels). _(Requires the [TokenEscrow amendment][] {% not-enabled /%}.)_ |
+| `LockedAmount`      | String - Number      | UInt64        | No        | The amount of tokens currently locked up (for example, in escrow). {% amendment-disclaimer name="TokenEscrow" /%} |
 | `PreviousTxnID`     | String - [Hash][]    | UInt256       | Yes       | The identifying hash of the transaction that most recently modified this entry. |
 | `PreviousTxnLgrSeq` | Number               | UInt32        | Yes       | The sequence of the ledger that contains the transaction that most recently modified this object. |
 | `OwnerNode`         | String               | UInt64        | Yes       | A hint indicating which page of the owner directory links to this entry, in case the directory consists of multiple pages. |

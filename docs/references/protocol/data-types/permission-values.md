@@ -3,6 +3,7 @@ seo:
     description: Format for permissions that can be granted to other accounts.
 label:
     - Permissions
+status: not_enabled
 ---
 # Permission Values
 
@@ -11,7 +12,7 @@ label:
 - **Transaction Type Permissions** - Permission to send transactions with the specified [transaction type](../transactions/types/index.md).
 - **Granular Permissions** - Permission to send transactions with a specific subset of functionality.
 
-_(Requires the [PermissionDelegation amendment][] {% not-enabled /%}.)_
+{% amendment-disclaimer name="PermissionDelegation" /%}
 
 ## Numeric and String Values
 
@@ -73,8 +74,8 @@ Granular Permissions have numeric types of 65537 and up, corresponding to specif
 | `65544`       | `AccountTickSizeSet`     | [AccountSet][]         | Can set the [tick size of fungible tokens issued by the account](/docs/concepts/tokens/decentralized-exchange/ticksize). |
 | `65545`       | `PaymentMint`            | [Payment][]            | Can send payments that mint new fungible tokens or MPTs. |
 | `65546`       | `PaymentBurn`            | [Payment][]            | Can send payments that burn fungible tokens or MPTs. |
-| `65547`       | `MPTokenIssuanceLock`    | [MPTokenIssuanceSet][] | Can lock the balances of a particular MPT issued by the account. _(Requires the [MPTokensV1 amendment][] {% not-enabled /%}.)_ |
-| `65548`       | `MPTokenIssuanceUnlock`  | [MPTokenIssuanceSet][] | Can unlock the balances of a particular MPT issued by the account. _(Requires the [MPTokensV1 amendment][] {% not-enabled /%}.)_ |
+| `65547`       | `MPTokenIssuanceLock`    | [MPTokenIssuanceSet][] | Can lock the balances of a particular MPT issued by the account. {% amendment-disclaimer name="MPTokensV1" /%} |
+| `65548`       | `MPTokenIssuanceUnlock`  | [MPTokenIssuanceSet][] | Can unlock the balances of a particular MPT issued by the account. {% amendment-disclaimer name="MPTokensV1" /%} |
 
 ### Limitations to Granular Permissions
 

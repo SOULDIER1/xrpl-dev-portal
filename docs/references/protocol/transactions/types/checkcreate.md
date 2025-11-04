@@ -1,17 +1,15 @@
 ---
-html: checkcreate.html
-parent: transaction-types.html
 seo:
     description: Create a check.
 labels:
-  - Checks
+    - Checks
 ---
 # CheckCreate
 [[Source]](https://github.com/XRPLF/rippled/blob/master/src/xrpld/app/tx/detail/CreateCheck.cpp "Source")
 
-Create a Check object in the ledger, which is a deferred payment that can be cashed by its intended destination. The sender of this transaction is the sender of the Check.
+Create an on-ledger [check](../../../../concepts/payment-types/checks.md), which is a deferred payment that can be cashed by its intended destination. The sender of this transaction is the sender of the check.
 
-_(Added by the [Checks amendment][].)_
+{% amendment-disclaimer name="Checks" /%}
 
 ## Example {% $frontmatter.seo.title %} JSON
 
@@ -35,14 +33,14 @@ _(Added by the [Checks amendment][].)_
 | Field            | JSON Type           | [Internal Type][] | Description     |
 |:-----------------|:--------------------|:------------------|:----------------|
 | `Destination`    | String              | AccountID         | The unique address of the [account](../../../../concepts/accounts/index.md) that can cash the Check. |
-| `SendMax`        | [Currency Amount][] | Amount            | Maximum amount of source currency the Check is allowed to debit the sender, including [transfer fees](../../../../concepts/tokens/transfer-fees.md) on non-XRP currencies. The Check can only credit the destination with the same currency (from the same issuer, for non-XRP currencies). For non-XRP amounts, the nested field names MUST be lower-case. |
+| `SendMax`        | [Currency Amount][] | Amount            | Maximum amount of source currency the Check is allowed to debit the sender, including [transfer fees](../../../../concepts/tokens/fungible-tokens/transfer-fees.md) on non-XRP currencies. The Check can only credit the destination with the same currency (from the same issuer, for non-XRP currencies). For non-XRP amounts, the nested field names MUST be lower-case. |
 | `DestinationTag` | Number              | UInt32            | _(Optional)_ Arbitrary tag that identifies the reason for the Check, or a hosted recipient to pay. |
 | `Expiration`     | Number              | UInt32            | _(Optional)_ Time after which the Check is no longer valid, in [seconds since the Ripple Epoch][]. |
 | `InvoiceID`      | String              | UInt256           | _(Optional)_ Arbitrary 256-bit hash representing a specific reason or identifier for this Check. |
 
 ## Error Cases
 
-- If the `Destination` account is blocking incoming Checks, the transaction fails with the result code `tecNO_PERMISSION`. _(Requires the [DisallowIncoming amendment][])_
+- If the `Destination` account is blocking incoming Checks, the transaction fails with the result code `tecNO_PERMISSION`. {% amendment-disclaimer name="DisallowIncoming" /%}
 - If the `Destination` is the sender of the transaction, the transaction fails with the result code `temREDUNDANT`.
 - If the `Destination` [account](../../../../concepts/accounts/index.md) does not exist in the ledger, the transaction fails with the result code `tecNO_DST`.
 - If the `Destination` account has the `RequireDest` flag enabled but the transaction does not include a `DestinationTag` field, the transaction fails with the result code `tecDST_TAG_NEEDED`.

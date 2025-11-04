@@ -1,6 +1,6 @@
 ---
 seo:
-    description: An order to make a currency trade.
+    description: An offer (order) to trade currencies in the decentralized exchange.
 labels:
   - Decentralized Exchange
 ---
@@ -42,10 +42,10 @@ In addition to the [common fields](../common-fields.md), {% code-page-name /%} e
 | Name                | JSON Type            | [Internal Type][] | Required? | Description |
 |:--------------------|:---------------------|:------------------|:----------|:------------|
 | `Account`           | String - [Address][] | AccountID         | Yes       | The account that owns this offer. |
-| `AdditionalBooks`   | Array                | Array             | No        | A list of additional offer directories that link to this offer. This field is only present if this is a hybrid offer in a [permissioned DEX](../../../../concepts/tokens/decentralized-exchange/permissioned-dexes.md). The array always contains exactly 1 entry. _(Requires the [PermissionedDEX amendment][] {% not-enabled /%})_ |
+| `AdditionalBooks`   | Array                | Array             | No        | A list of additional offer directories that link to this offer. This field is only present if this is a hybrid offer in a [permissioned DEX](../../../../concepts/tokens/decentralized-exchange/permissioned-dexes.md). The array always contains exactly 1 entry. {% amendment-disclaimer name="PermissionedDEX" /%} |
 | `BookDirectory`     | String - [Hash][]    | UInt256           | Yes       | The ID of the [offer directory](directorynode.md) that links to this offer. |
 | `BookNode`          | String               | UInt64            | Yes       | A hint indicating which page of the offer directory links to this entry, in case the directory consists of multiple pages. |
-| `DomainID`          | String - [Hash][]    | UInt256           | No        | The ledger entry ID of a permissioned domain. If present, this offer belongs to the corresponding [Permissioned DEX](../../../../concepts/tokens/decentralized-exchange/permissioned-dexes.md). _(Requires the [PermissionedDEX amendment][] {% not-enabled /%})_ |
+| `DomainID`          | String - [Hash][]    | UInt256           | No        | The ledger entry ID of a permissioned domain. If present, this offer belongs to the corresponding [Permissioned DEX](../../../../concepts/tokens/decentralized-exchange/permissioned-dexes.md). {% amendment-disclaimer name="PermissionedDEX" /%} |
 | `Expiration`        | Number               | UInt32            | No        | Indicates the time after which this offer is considered unfunded. See [Specifying Time][] for details. |
 | `LedgerEntryType`   | String               | UInt16            | Yes       | The value `0x006F`, mapped to the string `Offer`, indicates that this is an offer entry. |
 | `OwnerNode`         | String               | UInt64            | Yes       | A hint indicating which page of the owner directory links to this entry, in case the directory consists of multiple pages. |
@@ -63,7 +63,7 @@ In addition to the [common fields](../common-fields.md), {% code-page-name /%} e
 |--------------|--------------|---------------|-------------|------------------------|
 | `lsfPassive` | `0x00010000` | 65536         | `tfPassive` | The offer was placed as passive. This has no effect after the offer is placed into the ledger. |
 | `lsfSell`    | `0x00020000` | 131072        | `tfSell`    | The offer was placed as a sell offer. This has no effect after the offer is placed in the ledger, because `tfSell` only matters if you get a better rate than you asked for, which can only happen when the offer is initially placed. |
-| `lsfHybrid`  | `0x00040000` | 262144        | `tfHybrid`  | The offer was placed as a hybrid offer, which means it is listed in a [permissioned DEX](/docs/concepts/tokens/decentralized-exchange/permissioned-dexes.md) and the open DEX. _(Requires the [PermissionedDEX amendment][] {% not-enabled /%})_ |
+| `lsfHybrid`  | `0x00040000` | 262144        | `tfHybrid`  | The offer was placed as a hybrid offer, which means it is listed in a [permissioned DEX](/docs/concepts/tokens/decentralized-exchange/permissioned-dexes.md) and the open DEX. {% amendment-disclaimer name="PermissionedDEX" /%} |
 
 ## {% $frontmatter.seo.title %} Reserve
 
@@ -79,5 +79,11 @@ The ID of an `Offer` entry is the [SHA-512Half][] of the following values, conca
 * The Sequence number of the [OfferCreate transaction][] that created the offer.
 
     If the OfferCreate transaction used a [ticket](../../../../concepts/accounts/tickets.md), use the `TicketSequence` value instead.
+
+## See Also
+
+- **Transactions:**
+  - [OfferCancel transaction][]
+  - [OfferCreate transaction][]
 
 {% raw-partial file="/docs/_snippets/common-links.md" /%}

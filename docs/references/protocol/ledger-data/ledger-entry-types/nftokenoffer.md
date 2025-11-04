@@ -1,6 +1,6 @@
 ---
 seo:
-    description: Create offers to buy or sell NFTs.
+    description: An offer to buy or sell an NFT.
 labels:
  - Non-fungible Tokens, NFTs
 ---
@@ -9,7 +9,7 @@ labels:
 
 An `NFTokenOffer` entry represents an offer to buy, sell or transfer an [NFT](../../../../concepts/tokens/nfts/index.md). You can create an NFT buy or sell offer by sending an [NFTokenCreateOffer transaction][].
 
-_(Added by the [NonFungibleTokensV1_1 amendment][].)_
+{% amendment-disclaimer name="NonFungibleTokensV1_1" /%}
 
 ## Example {% $frontmatter.seo.title %} JSON
 
@@ -81,5 +81,12 @@ The unique ID (`NFTokenOfferID`) of a `NFTokenOffer` object is the result of the
 * The `NFTokenOffer` space key, `0x0037`;
 * The `AccountID` of the account placing the offer; and
 * The `Sequence` (or `Ticket`) of the `NFTokenCreateOffer` transaction that created the `NFTokenOffer`.
+
+## See Also
+
+- **Transactions:**
+  - [NFTokenAcceptOffer transaction][]
+  - [NFTokenCancelOffer transaction][]
+  - [NFTokenCreateOffer transaction][]
 
 {% raw-partial file="/docs/_snippets/common-links.md" /%}

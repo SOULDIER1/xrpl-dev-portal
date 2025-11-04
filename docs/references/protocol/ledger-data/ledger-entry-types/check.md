@@ -9,7 +9,7 @@ labels:
 
 A `Check` entry describes a [check](../../../../concepts/payment-types/checks.md), similar to a paper personal check, which can be cashed by its destination to get money from its sender. You can create a check by sending a [CheckCreate transaction][].
 
-_(Added by the [Checks amendment][].)_
+{% amendment-disclaimer name="Checks" /%}
 
 ## Example {% $frontmatter.seo.title %} JSON
 
@@ -64,7 +64,7 @@ There are no flags defined for {% code-page-name /%} entries.
 
 
 ## Check ID Format
-[[Source]](https://github.com/XRPLF/rippled/blob/master/src/ripple/protocol/impl/Indexes.cpp#L193-L200 "Source")
+[[Source]](https://github.com/XRPLF/rippled/blob/70d5c624e8cf732a362335642b2f5125ce4b43c1/src/libxrpl/protocol/Indexes.cpp#L335-L339 "Source")
 
 The ID of a `Check` entry is the [SHA-512Half][] of the following values, concatenated in order:
 

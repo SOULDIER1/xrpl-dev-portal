@@ -6,7 +6,7 @@ labels:
   - 分散型取引所
 ---
 # DirectoryNode
-[[ソース]](https://github.com/XRPLF/rippled/blob/5d2d88209f1732a0f8d592012094e345cbe3e675/src/ripple/protocol/impl/LedgerFormats.cpp#L44 "Source")
+[[ソース]](https://github.com/XRPLF/rippled/blob/7e24adbdd0b61fb50967c4c6d4b27cc6d81b33f3/include/xrpl/protocol/detail/ledger_entries.macro#L177-L192 "Source")
 
 `DirectoryNode`オブジェクトタイプは、レジャーの状態ツリー内の他オブジェクトへのリンクのリストを提供します。概念上の1つの _ディレクトリ_ は、1つ以上の各DirectoryNodeオブジェクトが含まれる二重リンクリストの形式になっています。各DirectoryNodeオブジェクトには、他オブジェクトの[ID](../common-fields.md)が最大32個まで含まれています。1番目のオブジェクトはディレクトリのルートと呼ばれ、ルートオブジェクト以外のオブジェクトはすべて必要に応じて自由に追加または削除できます。
 
@@ -95,6 +95,7 @@ labels:
 
 | 名前                | JSONの型  | [内部の型][] | 必須?  | 説明 |
 |---------------------|-----------|--------------|:-------|-------------|
+| `DomainID`          | 文字列    | Hash256      | いいえ | (オファーディレクトリのみ) 許可型DEXのレジャーエントリID。指定された場合、対応する[許可型DEX](../../../../concepts/tokens/decentralized-exchange/permissioned-dexes.md)のみを使用するパスを返します。([PermissionedDEX amendment][] {% not-enabled /%}が必要です。) |
 | `ExchangeRate`      | 数値      | UInt64       | いいえ | （オファーディレクトリのみ）**廃止予定**。使用しないでください。 |
 | `Flags`             | 数値      | UInt32       | はい   | このディレクトリに対して有効になっているブール値フラグのビットマップ。現在、プロトコルではDirectoryNodeオブジェクトのフラグは定義されていません。 |
 | `Indexes`           | 配列      | Vector256    | はい   | このディレクトリの内容: 他のオブジェクトのIDの配列。 |
@@ -103,8 +104,8 @@ labels:
 | `LedgerEntryType`   | 文字列    | UInt16       | はい   | 値が`0x0064`（文字列`DirectoryNode`にマッピング）の場合は、このオブジェクトがディレクトリの一部であることを示します。 |
 | `NFTokenID`         | 文字列    | UInt256      | いいえ |(NFTオファーディレクトリのみ) 購入または売却オファーに紐づくNFTのID。. |
 | `Owner`             | 文字列    | AccountID    | いいえ | （所有者ディレクトリのみ）このディレクトリ内のオブジェクトを所有するアカウントのアドレス。 |
-| `PreviousTxnID`     | 文字列    | UInt256      | いいえ | このエントリを最後に変更したトランザクションの識別ハッシュ。_（[fixPreviousTxnID amendment][]により追加されました。）_ |
-| `PreviousTxnLgrSeq` | 数値      | UInt32       | いいえ | このエントリを最後に変更したトランザクションが含まれる[レジャーインデックス](../ledger-header.md)。_（[fixPreviousTxnID amendment][]により追加されました。）_ |
+| `PreviousTxnID`     | 文字列    | UInt256      | いいえ | このエントリを最後に変更したトランザクションの識別ハッシュ。{% amendment-disclaimer name="fixPreviousTxnID" /%} |
+| `PreviousTxnLgrSeq` | 数値      | UInt32       | いいえ | このエントリを最後に変更したトランザクションが含まれる[レジャーインデックス](../ledger-header.md)。{% amendment-disclaimer name="fixPreviousTxnID" /%} |
 | `RootIndex`         | 文字列    | UInt256      | はい   | このディレクトリのルートオブジェクトのID。 |
 | `TakerGetsCurrency` | 文字列    | UInt160      | いいえ | （オファーディレクトリのみ）このディレクトリのオファーのTakerGetsの額の通貨コード。 |
 | `TakerGetsIssuer`   | 文字列    | UInt160      | いいえ | （オファーディレクトリのみ）このディレクトリのオファーのTakerGetsの額のイシュアー。 |
@@ -135,6 +136,7 @@ DirectoryNodeのIDを作成するときには、DirectoryNodeが以下のどの�
 
 * 所有者ディレクトリまたはNFTオファーディレクトリの1番目のページ（ルートとも呼ばれます）
 * オファーディレクトリの1番目のページ
+* オファーディレクトリの最初のページ。オープンDEXと認可型DEX用のバージョンが含まれます。 _([PermissionedDEX amendment][]が必要です。 {% not-enabled /%})_
 * いずれかのディレクトリの以降のページ
 
 **所有者ディレクトリまたはNFTオファーディレクトリの1番目のページ**のIDは、以下の値がこの順序で連結されている[SHA-512Half][]です。
@@ -149,6 +151,7 @@ DirectoryNodeのIDを作成するときには、DirectoryNodeが以下のどの�
 * `TakerGetsCurrency`の160ビットの通貨コード
 * `TakerPaysIssuer`のAccountID
 * `TakerGetsIssuer`のAccountID
+* このオーダーブックが属する許可型DEXの許可型ドメインの`DomainID`。許可型DEXのオーダーブックの場合。オープンDEXのオーダーブックの場合は省略。
 
 オファーディレクトリのIDの下位64ビットは、そのディレクトリ内のオファーのTakerPaysの額をTakerGetsの額で割った結果を、XRP Ledgerの内部金額フォーマットの64ビット数値で表したものです。
 

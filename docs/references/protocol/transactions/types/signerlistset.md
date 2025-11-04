@@ -1,16 +1,16 @@
 ---
-html: signerlistset.html
-parent: transaction-types.html
 seo:
     description: Add, remove, or modify an account's multi-signing list.
 labels:
-  - Security
+    - Security
 ---
 # SignerListSet
-
 [[Source]](https://github.com/XRPLF/rippled/blob/master/src/xrpld/app/tx/detail/SetSignerList.cpp "Source")
 
-The SignerListSet transaction creates, replaces, or removes a list of signers that can be used to [multi-sign](../../../../concepts/accounts/multi-signing.md) a transaction. This transaction type was introduced by the [MultiSign amendment][].
+Create, replace, or remove a list of signers that can be used to [multi-sign](../../../../concepts/accounts/multi-signing.md) a transaction.
+
+{% amendment-disclaimer name="MultiSign" /%}
+
 
 ## Example {% $frontmatter.seo.title %} JSON
 
@@ -47,7 +47,6 @@ The SignerListSet transaction creates, replaces, or removes a list of signers th
 {% tx-example txid="09A9C86BF20695735AB03620EB1C32606635AC3DA0B70282F37C674FC889EFE7" /%}
 
 {% raw-partial file="/docs/_snippets/tx-fields-intro.md" /%}
-<!--{# fix md highlighting_ #}-->
 
 | Field           | JSON Type | [Internal Type][] | Description                  |
 |:----------------|:----------|:------------------|:-----------------------------|
@@ -63,5 +62,9 @@ You can create, update, or remove a signer list using the master key, regular ke
 You cannot remove the last method of signing transactions from an account. If an account's master key is disabled (the account has the [`lsfDisableMaster` flag](../../ledger-data/ledger-entry-types/accountroot.md#accountroot-flags) enabled) and the account does not have a [Regular Key](../../../../concepts/accounts/cryptographic-keys.md) configured, then you cannot delete the signer list from the account. Instead, the transaction fails with the error [`tecNO_ALTERNATIVE_KEY`](../transaction-results/tec-codes.md).
 
 Creating or replacing a signer list enables the `lsfOneOwnerCount` flag on the [SignerList object](../../ledger-data/ledger-entry-types/signerlist.md). Lists that were created before the [MultiSignReserve amendment][] became enabled do not have this flag and have a higher [owner reserve](../../../../concepts/accounts/reserves.md#owner-reserves). You can decrease the owner reserve for these lists by replacing the list with the same list. For more information, see [SignerList Flags](../../ledger-data/ledger-entry-types/signerlist.md#signerlist-flags).
+
+## See Also
+
+- [SignerList entry][]
 
 {% raw-partial file="/docs/_snippets/common-links.md" /%}

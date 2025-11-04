@@ -1,18 +1,15 @@
 ---
-html: ticketcreate.html
-parent: transaction-types.html
 seo:
-    description: Set aside one or more sequence numbers as Tickets.
+    description: Set aside one or more sequence numbers as tickets.
 labels:
-  - Transaction Sending
+    - Transaction Sending
 ---
 # TicketCreate
-
 [[Source]](https://github.com/XRPLF/rippled/blob/master/src/xrpld/app/tx/detail/CreateTicket.cpp "Source")
 
-_(Added by the [TicketBatch amendment][].)_
+Set aside one or more [sequence numbers][Sequence Number] as [tickets](../../../../concepts/accounts/tickets.md).
 
-A TicketCreate transaction sets aside one or more [sequence numbers][Sequence Number] as [Tickets](../../../../concepts/accounts/tickets.md).
+{% amendment-disclaimer name="TicketBatch" /%}
 
 ## Example {% $frontmatter.seo.title %} JSON
 
@@ -48,5 +45,9 @@ Besides errors that can occur for all transactions, {% $frontmatter.seo.title %}
 | `temINVALID_COUNT`        | The `TicketCount` field is invalid. It must be an integer from 1 to 250. |
 | `tecDIR_FULL`             | This transaction would cause the account to own more than the limit of 250 Tickets at a time, or more than the maximum number of ledger objects in general. |
 | `tecINSUFFICIENT_RESERVE` | The sending account does not have enough XRP to meet the [owner reserve](../../../../concepts/accounts/reserves.md) of all the requested Tickets. |
+
+## See Also
+
+- [Ticket entry][]
 
 {% raw-partial file="/docs/_snippets/common-links.md" /%}

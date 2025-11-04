@@ -1,14 +1,12 @@
 ---
-html: ripple_path_find.html
-parent: path-and-order-book-methods.html
 seo:
     description: Find a path for payment between two accounts, once.
 labels:
-  - Cross-Currency
-  - Tokens
+    - Cross-Currency
+    - Tokens
 ---
 # ripple_path_find
-[[Source]](https://github.com/XRPLF/rippled/blob/master/src/ripple/rpc/handlers/RipplePathFind.cpp "Source")
+[[Source]](https://github.com/XRPLF/rippled/blob/master/src/xrpld/rpc/handlers/RipplePathFind.cpp "Source")
 
 The `ripple_path_find` method is a simplified version of the [path_find method][] that provides a single response with a [payment path](../../../../concepts/tokens/fungible-tokens/paths.md) you can use right away. It is available in both the WebSocket and JSON-RPC APIs. However, the results tend to become outdated as time passes. Instead of making multiple calls to stay updated, you should instead use the [path_find method][] to subscribe to continued updates where possible.
 
@@ -90,7 +88,7 @@ The request includes the following parameters:
 | `source_account`      | String - [Address][] | Yes       | The account that would send funds |
 | `destination_account` | String - [Address][] | Yes       | The account that would receive funds |
 | `destination_amount`  | [Currency Amount][]  | Yes       | How much the destination account would receive. **Special case:** You can specify `"-1"` (for XRP) or provide -1 as the contents of the `value` field (for tokens). This requests a path to deliver as much as possible, while spending no more than the amount specified in `send_max` (if provided). |
-| `domain`              | String - [Hash][]    | No        | The ledger entry ID of a permissioned domain. If provided, only return paths that use the corresponding [permissioned DEX](../../../../concepts/tokens/decentralized-exchange/permissioned-dexes.md). _(Requires the [PermissionedDEX amendment][] {% not-enabled /%})_ |
+| `domain`              | String - [Hash][]    | No        | The ledger entry ID of a permissioned domain. If provided, only return paths that use the corresponding [permissioned DEX](../../../../concepts/tokens/decentralized-exchange/permissioned-dexes.md). {% amendment-disclaimer name="PermissionedDEX" /%} |
 | `ledger_hash`         | String - [Hash][]    | No        | The unique hash of the ledger version to use. (See [Specifying Ledgers][]) |
 | `ledger_index`        | [Ledger Index][]     | No        | The ledger index of the ledger to use, or a shortcut string to choose a ledger automatically. (See [Specifying Ledgers][]) |
 | `send_max`            | [Currency Amount][]  | No        | Maximum amount that would be spent. Cannot be used with `source_currencies`. |

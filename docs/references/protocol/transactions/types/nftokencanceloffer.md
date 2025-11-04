@@ -1,17 +1,15 @@
 ---
-html: nftokencanceloffer.html
-parent: transaction-types.html
 seo:
-    description: Cancel existing token offers to buy or sell an NFToken.
+    description: Cancel offers to buy or sell an NFT.
 labels:
-  - NFTs, Non-fungible Tokens
+    - NFTs, Non-fungible Tokens
 ---
 # NFTokenCancelOffer
 [[Source]](https://github.com/XRPLF/rippled/blob/master/src/xrpld/app/tx/detail/NFTokenCancelOffer.cpp "Source")
 
-The `NFTokenCancelOffer` transaction can be used to cancel existing token offers created using `NFTokenCreateOffer`.
+Cancel an offer to buy or sell a [non-fungible token (NFT)](../../../../concepts/tokens/nfts/index.md).
 
-_(Added by the [NonFungibleTokensV1_1 amendment][].)_
+{% amendment-disclaimer name="NonFungibleTokensV1_1" /%}
 
 ## Example {% $frontmatter.seo.title %} JSON
 
@@ -58,5 +56,9 @@ Besides errors that can occur for all transactions, {% $frontmatter.seo.title %}
 | `temDISABLED`      | The [NonFungibleTokensV1 amendment][] is not enabled. |
 | `temMALFORMED`     | The transaction was not validly formatted. For example, the `NFTokenOffers` array was empty or contained more than the maximum number of offers that can be canceled at one time. |
 | `tecNO_PERMISSION` | At least one of the IDs in the `NFTokenOffers` field refers to an object that cannot be canceled. For example, the sender of this transaction is not the owner or `Destination` of the offer, or the object was not an `NFTokenOffer` type object. |
+
+## See Also
+
+- [NFTokenOffer entry][]
 
 {% raw-partial file="/docs/_snippets/common-links.md" /%}

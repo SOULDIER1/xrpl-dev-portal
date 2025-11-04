@@ -1,6 +1,4 @@
 ---
-html: account_info.html
-parent: account-methods.html
 seo:
     description: Get basic data about an account.
 labels:
@@ -8,7 +6,7 @@ labels:
   - XRP
 ---
 # account_info
-[[Source]](https://github.com/XRPLF/rippled/blob/master/src/ripple/rpc/handlers/AccountInfo.cpp "Source")
+[[Source]](https://github.com/XRPLF/rippled/blob/master/src/xrpld/rpc/handlers/AccountInfo.cpp "Source")
 
 The `account_info` command retrieves information about an account, its activity, and its XRP balance. All information retrieved is relative to a particular version of the ledger.
 
@@ -63,7 +61,7 @@ The request contains the following parameters:
 | `account`      | String - [Address][] | Yes       | The account to look up. {% badge href="https://github.com/XRPLF/rippled/releases/tag/1.11.0" %}Updated in: rippled 1.11.0{% /badge %} |
 | `ledger_hash`  | String               | No        | The unique hash of the ledger version to use. (See [Specifying Ledgers][]) |
 | `ledger_index` | Number or String     | No        | The [ledger index][] of the ledger to use, or a shortcut string to choose a ledger automatically. (See [Specifying Ledgers][]) |
-| `queue`        | Boolean              | No        | If `true`, return stats about [queued transactions](../../../../concepts/transactions/transaction-queue.md) sent by this account. Can only be used when querying for the data from the current open ledger. Not available from servers in [Reporting Mode][]. |
+| `queue`        | Boolean              | No        | If `true`, return stats about [queued transactions](../../../../concepts/transactions/transaction-queue.md) sent by this account. Can only be used when querying for the data from the current open ledger. |
 | `signer_lists` | Boolean              | No        | If `true`, return any [SignerList objects](../../../protocol/ledger-data/ledger-entry-types/signerlist.md) associated with this account. |
 
 The following fields are deprecated and should not be provided: `ident`, `ledger`, `strict`.
@@ -218,10 +216,10 @@ The `account_flags` field contains the following nested fields:
 | `defaultRipple`        | Boolean | If `true`, the account allows [rippling](../../../../concepts/tokens/fungible-tokens/rippling.md) on its trust lines by default. |
 | `depositAuth`          | Boolean | If `true`, the account is using [Deposit Authorization](../../../../concepts/accounts/depositauth.md) and does not accept any payments from unknown parties. |
 | `disableMasterKey`     | Boolean | If `true`, the account's [master key pair](../../../../concepts/accounts/cryptographic-keys.md) is disabled. |
-| `disallowIncomingCheck` | Boolean | If `true`, the account does not allow others to send [Checks](../../../../concepts/payment-types/checks.md) to it. _(Requires the [DisallowIncoming amendment][])_ |
-| `disallowIncomingNFTokenOffer` | Boolean | If `true`, the account does not allow others to make [NFT buy or sell offers](../../../../concepts/tokens/nfts/trading.md) to it. _(Requires the [DisallowIncoming amendment][])_ |
-| `disallowIncomingPayChan` | Boolean | If `true`, the account does not allow others to make [Payment Channels](../../../../concepts/payment-types/payment-channels.md) to it. _(Requires the [DisallowIncoming amendment][])_ |
-| `disallowIncomingTrustline` | Boolean | If `true`, the account does not allow others to make [trust lines](../../../../concepts/tokens/fungible-tokens/index.md) to it. _(Requires the [DisallowIncoming amendment][])_ |
+| `disallowIncomingCheck` | Boolean | If `true`, the account does not allow others to send [Checks](../../../../concepts/payment-types/checks.md) to it. {% amendment-disclaimer name="DisallowIncoming" /%} |
+| `disallowIncomingNFTokenOffer` | Boolean | If `true`, the account does not allow others to make [NFT buy or sell offers](../../../../concepts/tokens/nfts/trading.md) to it. {% amendment-disclaimer name="DisallowIncoming" /%} |
+| `disallowIncomingPayChan` | Boolean | If `true`, the account does not allow others to make [Payment Channels](../../../../concepts/payment-types/payment-channels.md) to it. {% amendment-disclaimer name="DisallowIncoming" /%} |
+| `disallowIncomingTrustline` | Boolean | If `true`, the account does not allow others to make [trust lines](../../../../concepts/tokens/fungible-tokens/index.md) to it. {% amendment-disclaimer name="DisallowIncoming" /%} |
 | `disallowIncomingXRP`  | Boolean | If `true`, the account does not want to receive XRP from others. (This is advisory, and not enforced at a protocol level.) |
 | `globalFreeze`         | Boolean | If `true`, all tokens issued by the account are currently frozen. |
 | `noFreeze`             | Boolean | If `true`, the account has permanently given up the abilities to freeze individual trust lines or end a global freeze. See [No Freeze](../../../../concepts/tokens/fungible-tokens/freezes.md#no-freeze) for details. |

@@ -17,6 +17,7 @@ const infoSession4 = require("../static/img/events/xrpl-builder-office-hours-04.
 const decarb = require('../static/img/events/xrpl-decarb.png')
 const townHall = require('../static/img/events/town-hall-meetup.png')
 const devBootcamp = require('../static/img/events/dev-bootcamp.png')
+const italyHackathon = require("../static/img/events/italy-hackathon.png");
 export const frontmatter = {
   seo: {
     title: "Events",
@@ -1239,6 +1240,83 @@ const events = [
     image: require("../static/img/events/commons-france.png"),
     end_date: "October 14, 2025",
   },
+  {
+    name: "EasyA x Flare Harvard Hackathon",
+    description:
+      "Collaborate, learn, and connect with fellow blockchain innovators and the Flare Networks team at Harvard.",
+    type: "hackathon",
+    link: "https://www.easya.io/events/easya-x-flare-harvard-hackathon",
+    location: "Boston, MA",
+    date: "September 20 - 21, 2025",
+    image: hackathon,
+    end_date: "September 21, 2025",
+  },
+  {
+    name: "XRP Seoul Summit 2025",
+    description:
+      "Join XRP Seoul 2025, Asia’s largest XRP & Web3 conference, and explore the future of the industry.",
+    type: "conference",
+    link: "https://xrp-seoul.com/",
+    location: "Seoul, South Korea",
+    date: "September 21, 2025",
+    image: conference,
+    end_date: "September 21, 2025",
+  },
+  {
+    name: "IXH25 - Italian XRPL Hackathon 2025",
+    description:
+      "A 3-day hackathon in Rome on cryptography and blockchain, featuring tracks on advanced cryptography and XRPL applications. Organized by XRPL Commons and partners, the event offers a €10,000 prize pool, includes seminars, coding and pitch sessions, and provides support for students.",
+    type: "hackathon",
+    link: "https://luma.com/llwjrmcx",
+    location: "Rome, Italy",
+    date: "November 07, 2025",
+    image: italyHackathon,
+    end_date: "November 08, 2025",
+  },
+  {
+    name: "Vega House Hackathon",
+    description:
+      "Vega House Hackathon: Compete in two XRPL tracks—Ledger Track to build MVP financial services using payments, tokenization, RLUSD, or AMM/DEX flows, and Exploration Track to create innovative apps leveraging XRPL features and upcoming amendments. Prizes total $25,000, including track awards and bounties for best use of new XRPL features.",
+    type: "hackathon",
+    link: "https://xrpl.vegahacks.xyz/",
+    location: "Virtual",
+    date: "Oct 01 - Nov 14, 2025",
+    image: italyHackathon,
+    end_date: "November 14, 2025",
+  },
+  {
+    name: "XRPL Town Hall Meeting #5",
+    description:
+      "Join Us for the 5th XRPL Town Hall Meeting!",
+    type: "info",
+    link: "https://luma.com/wo0g0fpv",
+    location: "Virtual",
+    date: "October 16, 2025",
+    image: require("../static/img/events/townhall-5.png"),
+    end_date: "October 16, 2025",    
+  },
+  {
+    name: "XRPL Aquarium Residency Demo Day #7",
+    description:
+      "The Aquarium Residency is a 12-week program for entrepreneurs & developers building on the XRP Ledger blockchain.  Join us at our Paris HQ to connect with our 11 residents, discover their projects focused on DeFi II, and engage with the XRPL community.",
+    type: "meetup",
+    link: "https://luma.com/mnby11vr",
+    location: "Paris, France",
+    image: require("../static/img/events/aquarium-residency.png"),
+    date: "December 10, 2025",
+    end_date: "December 10, 2025",
+  },
+  {
+    name: "XRPL Hackathon @ Blockchain Kaigi 2025",
+    description:
+      "This is a 3-week online hackathon culminating in demos and an awards ceremony to be held in conjunction with Blockchain Kaigi 2025 in Mumbai, India.",
+    type: "hackathon",
+    link: "https://luma.com/ypj8ecj0",
+    location: "Online (with demos at IIT Bombay)",
+    date: "Nov 14 - Dec 06, 2025",
+    image: require("../static/img/events/hackathon-kaigi.png"),
+    end_date: "December 06, 2025",
+  },
 ];
 
 
@@ -1320,33 +1398,33 @@ export default function Events() {
             <div className="pr-2 col">
               <img
                 alt="xrp ledger events hero"
-                src={require("../static/img/events/apex-hero.png")}
+                src={require("../static/img/events/xrp-community-night.png")}
                 className="w-100"
               />
             </div>
             <div className="pt-5 pr-2 col">
               <div className="d-flex flex-column-reverse">
                 <h2 className="mb-8 h4 h2-sm">
-                  {translate("Apex 2025")}
+                  {translate("XRP Community Night NYC")}
                 </h2>
                 <h6 className="mb-3 eyebrow">{translate("Save the Date")}</h6>
               </div>
               <p className="mb-4">
                 {translate(
-                  "Apex, hosted by Ripple is the largest annual summit on the XRPL calendar. It unites developers, businesses, fintechs, VCs and the wider community."
+                  "Join the XRP community in NYC—meet builders, users, and projects innovating on the XRP Ledger."
                 )}
               </p>
               <div className=" my-3 event-small-gray">
-                {translate("Location: Singapore")}
+                {translate("Location: New York, NY")}
               </div>
               <div className="py-2 my-3 event-small-gray">
-                {translate("June 10 - 12, 2025")}
+                {translate("November 5, 2025")}
               </div>
               <div className="d-lg-block">
                 <a
                   className="btn btn-primary btn-arrow-out"
                   target="_blank"
-                  href="https://www.xrpledgerapex.com/?utm_source=xrplwebsite_eventspage&utm_medium=organictraffic&utm_campaign=xrpl-event-ho-xrplapex-glb-2025-q1&utm_content=cta_button_RegisterNow"
+                  href="https://lu.ma/g5uja58m?utm_source=xrpleventspage"
                 >
                   {translate("Register Now")}
                 </a>

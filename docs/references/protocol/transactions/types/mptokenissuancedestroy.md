@@ -1,33 +1,39 @@
 ---
-blurb: Remove a Multi-purpose Token from the ledger.
+seo:
+    description: Delete a Multi-Purpose Token definition.
 labels:
- - Multi-purpose Tokens, MPTs
+    - Multi-purpose Tokens, MPTs
 ---
 # MPTokenIssuanceDestroy
 [[Source]](https://github.com/XRPLF/rippled/blob/master/src/xrpld/app/tx/detail/MPTokenIssuanceDestroy.cpp "Source")
 
-The `MPTokenIssuanceDestroy` transaction is used to remove an `MPTokenIssuance` object from the directory node in which it is being held, effectively removing the token from the ledger ("destroying" it).
+Delete a [Multi-purpose Token (MPT)](../../../../concepts/tokens/fungible-tokens/multi-purpose-tokens.md) issuance. Only the issuer can delete an MPT issuance, and only if there are no holders of the MPT.
 
-If this operation succeeds, the corresponding `MPTokenIssuance` is removed and the owner’s reserve requirement is reduced by one. This operation must fail if there are any holders of the MPT in question.
-
-_(Requires the [MPTokensV1 amendment][] {% not-enabled /%}.)_
+{% amendment-disclaimer name="MPTokensV1" /%}
 
 ## Example MPTokenIssuanceDestroy JSON
 
-```json 
+```json
 {
     "TransactionType": "MPTokenIssuanceDestroy",
+    "Account": "rNFta7UKwcoiCpxEYbhH2v92numE3cceB6",
+    "MPTokenIssuanceID": "05EECEBC97A7D635DE2393068691A015FED5A89AD203F5AA",
     "Fee": "10",
-    "MPTokenIssuanceID": "00070C4495F14B0E44F78A264E41713C64B5F89242540EE255534400000000000000"
+    "Flags": 0,
+    "Sequence": 99536573
 }
 ```
 
-<!-- ## MPTokenIssuanceDestroy Fields -->
+{% tx-example txid="B270DEE7D229D626699935B7B3CC37A1BAD3E832044CE5129722C2965D3EB228" /%}
 
 {% raw-partial file="/docs/_snippets/tx-fields-intro.md" /%}
 
 | Field               | JSON Type           | [Internal Type][] | Description        |
 |:--------------------|:--------------------|:------------------|:-------------------|
 | `MPTokenIssuanceID` | String              | UInt192           | Identifies the `MPTokenIssuance` object to be removed by the transaction. |
+
+## See Also
+
+- [MPTokenIssuance entry][]
 
 {% raw-partial file="/docs/_snippets/common-links.md" /%}

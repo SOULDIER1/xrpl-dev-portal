@@ -1,18 +1,16 @@
 ---
-html: set-up-iou-iou-bridge.html
-parent: use-xrpl-sidechains.html
 seo:
     description: Steps to set up an IOU-IOU bridge.
 labels:
-  - Interoperability
+    - Interoperability
 ---
 # Set Up an IOU-IOU Bridge
 
-_(Requires the [XChainBridge amendment][] {% not-enabled /%})_
-
 Setting up an IOU-IOU bridge enables you to move tokens between chains.
 
-**Note**: The code samples on this page illustrate how to bridge a hypotethical "TST" token from *Devnet* to *Sidechain-Devnet*, using a supported [client library](/docs/references/client-libraries.md) to query and submit transactions.
+{% admonition type="info" name="Note" %}The code samples on this page illustrate how to bridge a hypotethical "TST" token from *Devnet* to *Sidechain-Devnet*, using a supported [client library](/docs/references/client-libraries.md) to query and submit transactions.{% /admonition %}
+
+{% amendment-disclaimer name="XChainBridge" /%}
 
 ## Prerequisites
 
@@ -28,7 +26,7 @@ Setting up an IOU-IOU bridge enables you to move tokens between chains.
 const xrpl = require('xrpl')
 
 const WS_URL_lockingchain = 'wss://s.devnet.rippletest.net:51233/' // Locking chain
-const WS_URL_issuingchain = 'wss://sidechain-net2.devnet.rippletest.net:51233/' // Issuing chain
+const WS_URL_issuingchain = 'wss://example-sidechain.net:12345/' // Issuing chain
 
 // Define the XChainBridge, using the "TST" token.
 const xchainbridge = {

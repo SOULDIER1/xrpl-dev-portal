@@ -32,7 +32,7 @@ labels:
 
 ユーザが送金手数料ありのトークンを送信すると、送信側からは送信金額に加えて送金手数料が引き落とされ、受信側には送信金額のみが入金されます。送金手数料の金額はXRP Ledgerから「消滅」します。つまり、ユーザが送金手数料を支払うたびに、担保として保持する必要のある金額が減少するのです。
 
-詳しくは[送金手数料](../../transfer-fees.md)をご覧ください。
+詳しくは[送金手数料](../transfer-fees.md)をご覧ください。
 
 
 ## ティックサイズの設定
@@ -82,12 +82,11 @@ KYC(Know Your Customer)やAML(Anti-Money Laundering)などのコンプライア�
 
 ### Clawbackフラグ
 
-_([Clawback amendment](/resources/known-amendments.md#clawback) が必要です。)_
-
 Clawbackにより、特定の状況下でトラストラインからステーブルコインを回収(クローバック)することができます。これにより、アカウントへのアクセス不能や悪意のある活動などの課題に対応する能力が追加されます。
 
 [Clawback](../../../../references/protocol/transactions/types/clawback.md)をご覧ください。
 
+{% amendment-disclaimer name="Clawback" /%}
 
 ### 固定供給量
 

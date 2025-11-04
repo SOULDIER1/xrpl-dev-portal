@@ -9,7 +9,7 @@ labels:
 # AMMBid
 [[ソース]](https://github.com/XRPLF/rippled/blob/master/src/xrpld/app/tx/detail/AMMBid.cpp "Source")
 
-_([AMM amendment][]により追加されました。)_
+{% amendment-disclaimer name="AMM" /%}
 
 [自動マーケットメーカー](../../../../concepts/tokens/decentralized-exchange/automated-market-makers.md)のオークションスロットに入札することができます。落札されると、競り落とされるか24時間が経過するまで、割引料金でAMMと取引することができます。24時間が経過する前に競り落とされた場合、残り時間に応じて落札価格の一部が払い戻されます。AMMの取引手数料が0の場合、入札は可能ですが、入札スロットは取引手数料が変更されるまでメリットをもたらしません。
 
@@ -55,7 +55,7 @@ AMMのLPトークンを使って落札すると、落札に利用したLPトー�
 {% raw-partial file="/@l10n/ja/docs/_snippets/tx-fields-intro.md" /%}
 
 | フィールド       | JSONの型    | [内部の型][] | 必須?  | 説明 |
-|:---------------|:-----------|:- ----------|:----- |:------------|
+|:---------------|:-----------|:------------|:------|:------------|
 | `Asset`        | オブジェクト | STIssue      | はい  | AMMのプールにある資産の一つを定義します。JSONでは、`currency`と`issuer`フィールドを持つオブジェクトになります（XRPの場合は`issuer`を省略します）。 |
 | `Asset2`       | オブジェクト | STIssue      | はい  | AMMのプールにあるもう一つのアセットの定義です。JSONでは、`currency`と`issuer`フィールドを持つオブジェクトになります（XRPの場合は`issuer`を省略します）。 |
 | `BidMin`       | [通貨額][]  | Amount       | いいえ | スロットに支払う最小の金額。この値を高く設定すると、他の人から競り落とされにくくなります。省略された場合は、落札に必要な最低額を支払います。 |

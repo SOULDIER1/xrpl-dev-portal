@@ -1,6 +1,6 @@
 ---
 seo:
-    description: An `XChainOwnedClaimID` object represents *one* cross-chain transfer of value. 
+    description: A cross-chain transfer of value. 
 labels:
   - Interoperability
 status: not_enabled
@@ -14,7 +14,7 @@ The `XChainOwnedClaimID` entry must be acquired on the destination chain before 
 
 You can create a new `XChainOwnedClaimID` by sending an [XChainCreateClaimID transaction][]. An `XChainOwnedClaimID` is destroyed when the funds are successfully claimed on the destination chain.
 
-_(Requires the [XChainBridge amendment][] {% not-enabled /%})_
+{% amendment-disclaimer name="XChainBridge" /%}
 
 
 ## Example XChainOwnedClaimID JSON
@@ -101,5 +101,10 @@ _(Requires the [XChainBridge amendment][] {% not-enabled /%})_
 | `IssuingChainIssue` | Issue     | Issue             | Yes       | The asset that is minted and burned on the issuing chain. For an IOU-IOU bridge, the issuer of the asset must be the door account on the issuing chain, to avoid supply issues. |
 | `LockingChainDoor`  | String    | AccountID         | Yes       | The door account on the locking chain. |
 | `LockingChainIssue` | Issue     | Issue             | Yes       | The asset that is locked and unlocked on the locking chain. |
+
+## See Also
+
+- **Transactions:**
+  - [XChainCreateClaimID transaction][]
 
 {% raw-partial file="/docs/_snippets/common-links.md" /%}

@@ -54,6 +54,7 @@ $line-height-base: 1.5;
 @import "_top-banner.scss";
 @import "_content.scss";
 @import "_code-tabs.scss";
+@import "_code-walkthrough.scss";
 @import "_diagrams.scss";
 @import "_external-links.scss";
 @import "_footer.scss";
@@ -72,7 +73,6 @@ $line-height-base: 1.5;
 @import "_video.scss";
 @import "_contribute.scss";
 @import "_docs-landing.scss";
-@import "_xrplai.scss";
 @import "_osano.scss";
 // Light/Dark theme settings ---------------------------------------------------
 // Option to only change theme on user system settings.  No toggle.

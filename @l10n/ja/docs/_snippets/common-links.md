@@ -4,6 +4,7 @@
 [AMMオブジェクト]: /@l10n/ja/docs/references/protocol/ledger-data/ledger-entry-types/amm.md
 [AMMBid]: /@l10n/ja/docs/references/protocol/transactions/types/ammbid.md
 [AMMBidトランザクション]: /@l10n/ja/docs/references/protocol/transactions/types/ammbid.md
+[AMMClawbackトランザクション]: /@l10n/ja/docs/references/protocol/transactions/types/ammclawback.md
 [AMMCreate]: /@l10n/ja/docs/references/protocol/transactions/types/ammcreate.md
 [AMMCreateトランザクション]: /@l10n/ja/docs/references/protocol/transactions/types/ammcreate.md
 [AMMDelete]: /@l10n/ja/docs/references/protocol/transactions/types/ammdelete.md
@@ -148,6 +149,7 @@
 [PermissionDelegation amendment]: /@l10n/ja/resources/known-amendments.md#permissiondelegation
 [PermissionedDEX amendment]: /@l10n/ja/resources/known-amendments.md#permissioneddex
 [PermissionedDomains amendment]: /@l10n/ja/resources/known-amendments.md#permissioneddomains
+[PermissionedDomainSetトランザクション]: /@l10n/ja/docs/references/protocol/transactions/types/permissioneddomainset.md
 [許可型ドメイン]: /@l10n/ja/docs/concepts/tokens/decentralized-exchange/permissioned-domains.md
 [PriceOracle amendment]: /@l10n/ja/resources/known-amendments.md#priceoracle
 [MPTokensV1_1 amendment]: /@l10n/ja/resources/known-amendments.md#priceoracle
@@ -173,7 +175,7 @@
 [通貨額の指定]: /@l10n/ja/docs/references/protocol/data-types/basic-data-types.md#通貨額の指定
 [レジャーの指定]: /@l10n/ja/docs/references/protocol/data-types/basic-data-types.md#レジャーの指定
 [時間の指定]: /@l10n/ja/docs/references/protocol/data-types/basic-data-types.md#時間の指定
-[Specifying Without Amounts]: /@l10n/ja/docs/references/protocol/data-types/currency-formats.md#specifying-without-amounts
+[金額なしの指定]: /@l10n/ja/docs/references/protocol/data-types/currency-formats.md#金額なしでの通貨の指定
 [SusPay amendment]: /@l10n/ja/resources/known-amendments.md#suspay
 [TickSize amendment]: /@l10n/ja/resources/known-amendments.md#ticksize
 [Ticketエントリ]: /@l10n/ja/docs/references/protocol/ledger-data/ledger-entry-types/ticket.md
@@ -216,11 +218,9 @@
 [共通フィールド]: /@l10n/ja/docs/references/protocol/transactions/common-fields.md
 [connectメソッド]: /@l10n/ja/docs/references/http-websocket-apis/admin-api-methods/peer-management-methods/connect.md
 [consensus_infoメソッド]: /@l10n/ja/docs/references/http-websocket-apis/admin-api-methods/status-and-debugging-methods/consensus_info.md
-[crawl_shardsメソッド]: /@l10n/ja/docs/references/http-websocket-apis/admin-api-methods/logging-and-data-management-methods/crawl_shards.md
 [crypto-condition]: https://tools.ietf.org/html/draft-thomas-crypto-conditions-04
 [crypto-conditions]: https://tools.ietf.org/html/draft-thomas-crypto-conditions-04
 [deposit_authorizedメソッド]: /@l10n/ja/docs/references/http-websocket-apis/public-api-methods/path-and-order-book-methods/deposit_authorized.md
-[download_shardメソッド]: /@l10n/ja/docs/references/http-websocket-apis/admin-api-methods/logging-and-data-management-methods/download_shard.md
 [featureメソッド]: /@l10n/ja/docs/references/http-websocket-apis/admin-api-methods/status-and-debugging-methods/feature.md
 [手数料レベル]: /@l10n/ja/docs/concepts/transactions/transaction-cost.md#手数料レベル
 [feeメソッド]: /@l10n/ja/docs/references/http-websocket-apis/public-api-methods/server-info-methods/fee.md

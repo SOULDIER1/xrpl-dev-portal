@@ -1,6 +1,6 @@
 ---
 seo:
-    description: A ledger entry to publish price information about currency pairs.
+    description: A record of price information about currency pairs from an outside source.
 labels:
   - Decentralized Exchange
 ---
@@ -9,7 +9,7 @@ labels:
 
 An `Oracle` ledger entry holds data associated with a single [price oracle](../../../../concepts/decentralized-storage/price-oracles.md), which can store information on up to 10 asset pairs. You can create or modify a price oracle with an [OracleSet transaction][].
 
-_(Added by the [PriceOracle amendment][])_
+{% amendment-disclaimer name="PriceOracle" /%}
 
 ## Example Oracle JSON
 
@@ -89,5 +89,11 @@ The `Currency` field type contains 160 bits of arbitrary data representing a cur
   }
 }
 ```
+
+## See Also
+
+- **Transactions:**
+  - [OracleSet transaction][]
+  - [OracleDelete transaction][]
 
 {% raw-partial file="/docs/_snippets/common-links.md" /%}

@@ -143,6 +143,8 @@ component.amendment-status.requires.1: " "
 component.amendment-status.requires.2: が必要です。
 component.amendment-status.added.1: " "
 component.amendment-status.added.2: により追加されました。
+component.amendment-status.updated.1: " "
+component.amendment-status.updated.2: により更新されました。
 
 # Amendment tracker translations
 amendment.loading: ロード中Amendments...
@@ -151,6 +153,7 @@ amendment.table.name: 名前
 amendment.table.introduced: 登場
 amendment.table.status: ステータス
 amendment.status.enabled: 有効
+amendment.status.eta: 予定
 amendment.status.openForVoting: 投票中
 
 # index.page.tsx
@@ -829,6 +832,9 @@ resources.dev-tools.websocket-api.curl.modal.desc.part2: を使用してこれ�
 API Methods: APIメソッド
 Methods: メソッド
 Examples: の例
+# resources/dev-tools/websocket-api/ClioOnly.tsx
+resources.dev-tools.websocket-api.clio-only-badge: Clioのみ
+resources.dev-tools.websocket-api.clio-only-tooltip: このメソッドはClioサーバーからのみ利用可能です。
 
 # resources/dev-tools/xrp-ledger-toml-checker.page.tsx
 resources.dev-tools.toml-checker.p.part1: もしあなたがXRP Ledgerバリデータを運営していたり、XRP Ledgerをビジネスで利用しているのであれば、XRP Ledgerの利用状況に関する情報を、機械読み取り可能な

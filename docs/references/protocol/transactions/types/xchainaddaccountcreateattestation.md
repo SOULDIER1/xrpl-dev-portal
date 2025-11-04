@@ -1,18 +1,14 @@
 ---
-html: xchainaddaccountcreateattestation.html
-parent: transaction-types.html
 seo:
-    description: The `XChainAddAccountCreateAttestation` transaction provides an attestation from a witness server that a `XChainAccountCreateCommit` transaction occurred on the other chain.
+    description: Provide an attestation that an XChainAccountCreateCommit transaction occurred on another chain, for a cross-chain bridge.
 labels:
-  - Interoperability
+    - Interoperability
 status: not_enabled
 ---
 # XChainAddAccountCreateAttestation
-[[Source]](https://github.com/XRPLF/rippled/blob/master/src/ripple/protocol/impl/TxFormats.cpp#L447-L464 "Source")
+[[Source]](https://github.com/XRPLF/rippled/blob/70d5c624e8cf732a362335642b2f5125ce4b43c1/src/xrpld/app/tx/detail/XChainBridge.h#L189 "Source")
 
-_(Requires the [XChainBridge amendment][] {% not-enabled /%})_
-
-The `XChainAddAccountCreateAttestation` transaction provides an attestation from a witness server that an `XChainAccountCreateCommit` transaction occurred on the other chain.
+Provide an attestation from a [witness server](../../../../concepts/xrpl-sidechains/witness-servers.md) that an `XChainAccountCreateCommit` transaction occurred on the other chain.
 
 The signature must be from one of the keys on the door's signer list at the time the signature was provided. If the signature list changes between the time the signature was submitted and the quorum is reached, the new signature set is used and some of the currently collected signatures may be removed.
 
@@ -20,6 +16,7 @@ Any account can submit signatures.
 
 {% admonition type="info" name="Note" %}The reward is only sent to accounts that have keys on the current list. A quorum of signers need to agree on the `SignatureReward`, the same way they need to agree on the other data. A single witness server can't provide an incorrect value for this in an attempt to collect a larger reward.{% /admonition %}
 
+{% amendment-disclaimer name="XChainBridge" /%}
 
 ## Example XChainAddAccountCreateAttestation JSON
 
@@ -52,7 +49,7 @@ Any account can submit signatures.
 ```
 
 
-## XChainAddAccountCreateAttestation Fields
+{% raw-partial file="/docs/_snippets/tx-fields-intro.md" /%}
 
 | Field                      | JSON Type           | [Internal Type][] | Required? | Description |
 |:---------------------------|:--------------------|:------------------|:----------|:------------|
@@ -77,5 +74,9 @@ Any account can submit signatures.
 | `IssuingChainIssue` | Issue     | Issue             | Yes       | The asset that is minted and burned on the issuing chain. For an IOU-IOU bridge, the issuer of the asset must be the door account on the issuing chain, to avoid supply issues. |
 | `LockingChainDoor`  | String    | AccountID         | Yes       | The door account on the locking chain. |
 | `LockingChainIssue` | Issue     | Issue             | Yes       | The asset that is locked and unlocked on the locking chain. |
+
+## See Also
+
+- [XChainOwnedCreateAccountClaimID entry][]
 
 {% raw-partial file="/docs/_snippets/common-links.md" /%}

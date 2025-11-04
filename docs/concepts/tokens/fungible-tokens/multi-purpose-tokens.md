@@ -7,82 +7,186 @@ labels:
   - Multi-purpose Tokens
 status: not_enabled
 ---
-# Multi-purpose Tokens
+# Multi-Purpose Tokens
 
-_(Requires the [MPTokensV1 amendment][] {% not-enabled /%})_
+Multi-Purpose Tokens (MPTs) are a form of [fungible token](./index.md) on the XRP Ledger. They have been designed for greater efficiency and ease of use based on lessons learned from [trust line tokens](./trust-line-tokens.md) on the XRP Ledger.
 
-Multi-purpose tokens (MPTs) are a more compact and flexible type of [fungible token](./index.md) on the XRP Ledger.
+MPTs let you take advantage of ready-to-use tokenization features with a few lines of code. You can create many token experiences from one integration, while the code of the XRP Ledger blockchain does the heavy lifting.
 
-MPTs let you take advantage of ready-to-use tokenization features with a few lines of code. You can create many token experiences from one token program itself. 
+{% amendment-disclaimer name="MPTokensV1" /%}
+
+## Core Properties of MPTs on XRPL
+
+The following properties are inherent to all fungible tokens on the XRP Ledger, including MPTs:
+
+- **Anyone can be an issuer.** Every account has the capability to be a token issuer, and you can issue a very large quantity and variety of tokens from one account. Issuers can mint new units of any of their issuances at any time, subject to configurable limits, by sending [Payment transactions][].
+- **Issuers are separate from holders.** An issuer cannot hold their own tokens. If you send tokens to the issuer, those tokens are automatically burned. Issuers should use separate [operational accounts](../../accounts/account-types.md)—also called hot wallets—if they want to hold their own tokens.
+- **You can't force someone to hold tokens.** Holders must send a transaction that indicates their willingness to hold a token before they can receive it.
+
+Unlike trust line tokens, each MPT issuance is uniquely identified by an **MPT Issuance ID**, which is a 192-bit number not intended for display to humans, for example `00070C4495F14B0E44F78A264E41713C64B5F89242540EE255534400000000000000`. MPTs can be configured with metadata that affects how they are displayed, but there are no hard guarantees about the presence or uniqueness of currency codes.
 
 ## Key Features of MPTs on XRPL
 
-The following are notable features of MPTs on XRPL.
+MPTs are designed for decentralized finance, so they are ready to go with settings and features for institutional use cases:
 
-**On-Chain Metadata Storage**
+- **On-Chain Metadata:** Each MPT issuance has key properties defined on the ledger, so everyone can look up its data on-chain and the ledger's transaction engine can automatically enforce specific rules. Since MPT settings are defined per issuance, you don't have to set up separate accounts to issue tokens with different settings, which also helps minimize your exposure to cyberattacks.
+- **Transferability controls:** MPTs can be made non-transferable, or holdable only by approved users.
+- **Supply cap:** MPTs can be configured with a maximum issued quantity, so that the amount in circulation is never more than this number.
+- **Transfer fees:** The issuer can charge a percentage fee for users to transfer the tokens among themselves.
+- **Compliance controls:** The issuer can freeze holders' balances or claw back the tokens, or they can configure an MPT issuance so that those tokens can't be frozen or clawed back.
+- **Simpler conceptual model:** MPTs are unidirectional, with no balance netting and an explicit separation between holder and issuer. Additionally, they intentionally lack features like rippling which introduce more tricky edge cases.
 
-- MPTs store their metadata directly on the XRPL blockchain. Once set, the metadata is immutable. 
-- A 1024-byte URI field provides a metadata pointer that allows you to use an off-chain source for metadata in addition to the on-chain source. This lets your application access necessary information directly from the chain, prompting higher interoperability for tokens, without losing the ability to attach additional information. 
+### On-Chain Metadata
 
-**Transferability and Supply Controls**
+Every MPT issuance has a set of key properties defined in the ledger as an [MPTokenIssuance entry][]. This object contains both _functional_ and _non-functional_ data about the MPT:
 
-- MPTs can have a fixed token supply where you set a cap on the maximum number of tokens that can be minted. 
-- You can define MPTs as non-transferable, tokens that can only be transferred back to the issuer, but not among tokenholders. Useful for cases such as issuing airline credits or loyalty rewards.
-- Issuers can set transfer fees to collect on-chain revenue each time the token is traded among tokenholders. 
+- Functional data includes settings such as the MPT's transfer fee and maximum quantity, if any. There are also on-off flags to control properties such as the transferability of the token.
+- Non-functional data includes the asset scale (how much the asset can be subdivided—that is, where to put the decimal point) and up to 1024 bytes of arbitrary metadata. By convention, the metadata should be JSON data that conforms to the schema defined in [XLS-89](https://github.com/XRPLF/XRPL-Standards/tree/master/XLS-0089-multi-purpose-token-metadata-schema).
 
-**Built-In Compliance Features**
+After the MPT is issued, the on-chain data cannot be changed. However, the proposed [XLS-94: Dynamic MPT standard](https://github.com/XRPLF/XRPL-Standards/tree/master/XLS-0094-dynamic-MPT) {% not-enabled /%} would allow fields to be marked as mutable during creation, so that those fields can be changed later.
 
-MPTs also have advanced compliance features, including: 
- - The ability to lock tokens held by a tokenholder to support compliance requirements.
- - The ability to set a global lock for all MPT balances across all tokenholders.
- - The issuer can configure MPTs that can be clawed back from tokenholder wallets, either to revoke them, or to reassign them in the case of lost wallet keys. 
- - An opt-in feature can allow only wallets authorized by the issuer to hold issued tokens.
+#### Metadata Schema
 
-## MPTs versus Trust Lines
+To fit within the 1024-byte limit, MPT metadata must use compressed JSON keys. The following table describes these keys and their corresponding fields:
 
-These are the primary differences between MPTs and [trust lines](/docs/concepts/tokens/fungible-tokens#trust-lines).
+| Field Name      | Key  | Type             | Required? | Description |
+|:--------------- |:---- |:---------------- |---------- |-------------|
+| ticker          | `t`  | String           | Yes       | The ticker symbol used to represent the token. Must be uppercase letters (A-Z) and digits (0-9) only. A maximum of 6 characters is recommended. |
+| name            | `n`  | String           | Yes       | The display name of the token. Any UTF-8 string is permitted.  |
+| desc            | `d`  | String           | No        | A short description of the token. Any UTF-8 string is permitted. |
+| icon            | `i`  | String           | Yes       | The URI to the token icon. Can be `hostname/path` (HTTPS is assumed), or full URI for other protocols. |
+| asset_class     | `ac` | String           | Yes️       | Categorizes tokens by their primary purpose and backing. See [Asset Class](#asset-class) for more details. |
+| asset_subclass  | `as` | String           | No        | An optional subcategory that is only required if the `asset_class` is `rwa`. See [Asset Subclass](#asset-subclass) for more details. |
+| issuer_name     | `in` | String           | Yes       | Name of the entity issuing the token. Any UTF-8 string is permitted. |
+| uris            | `us` | Array            | No        | The list of related URIs such as website, documentation, and social media. See [URIs](#uris) for more details.|
+| additional_info | `ai` | Object or String | No        | Freeform field for key token details like interest rate, maturity date, term, or other relevant info. Any valid JSON object or UTF-8 string is permitted. |
 
-**Conceptual Differences**
+##### Asset Class
 
-- Unlike trust lines, MPTs do not represent bidirectional debt relationships. Instead, MPTs function more like a unidirectional trust line with only one balance. This reduces the overhead to support common tokenization requirements, including non-monetary use cases such as tracking reputation points in an online game.
+The `asset_class` field categorizes tokens by their primary purpose and backing. These categories help applications understand the nature of the token and its intended use case.
 
-- MPTs offer a less complicated conceptual model than trust lines. 
+| Category | Definition |
+|----------|------------|
+| `rwa` | Tokens representing real-world assets (RWAs), which derive value from legally enforceable claims on physical or off-chain financial assets. |
+| `memes` | Community-driven tokens without intrinsic backing or utility claims, primarily driven by internet culture or speculation. |
+| `wrapped` | Tokens representing assets from other blockchains, typically backed 1:1 by bridges or custodians. |
+| `gaming` | Tokens used in games or virtual worlds, often representing in-game currency, assets, or rewards. |
+| `defi` | Tokens native to or used within DeFi protocols, including governance tokens, DEX tokens, and lending assets. |
+| `other` | Tokens that do not clearly fit into the defined categories. This may include experimental, test, or tokens with unique use cases not covered elsewhere. |
 
-**Ledger Storage and Performance**
+##### Asset Subclass
 
-- MPTs require significantly less space than trust lines. They require roughly 52 bytes for each MPT held by a token holder, compared to at least 234 bytes for every new trust line.
+When `asset_class` is set to `rwa`, an `asset_subclass` can be specified to provide more granular categorization. This describes what type of real-world asset backs the token and what legal or regulatory framework might apply.
 
-- They reduce the long-term infrastructure and storage burdens for node operators, increasing network resiliency.
+| Subclass | Definition |
+|----------|------------|
+| `stablecoin` | Tokens pegged to a stable value, typically fiat currencies like USD, which are backed by reserves like cash, treasuries, or crypto collateral. |
+| `commodity` | Tokens that represent physical commodities like gold, silver, or oil, often redeemable or legally linked to off-chain reserves. |
+| `real_estate` | Tokens representing ownership or claims on real estate, including fractionalized property shares or REIT-like instruments. |
+| `private_credit` | Tokens representing debt obligations from private entities, such as loans, invoices, or receivables. |
+| `equity` | Tokens representing ownership shares in companies, similar to traditional stock or equity instruments. |
+| `treasury` | Tokens backed by government debt instruments, such as U.S. Treasury bills or bonds. |
+| `other` | Tokens that do not fit into the predefined categories, including experimental, hybrid, or emerging real-world asset types. |
 
-- MPTs also improve node perfomance when processing large volumes of transactions.
+##### URIs
 
-**Transfer Logic and Directionality**
+The `us` array contains a list of URI objects, each with a URI link, category, and human-readable title.
 
-- MPTs are unidirectional. While trust lines use "balance netting," MPTs have only a single balance.
-- An account can issue a maximum of 32 unique MPT issuances. If an issuer wants to support more than this number of MPTs, they can open additional accounts.
-- Since token holders will not acquire an MPT without first making an off-ledger trust decision, MPTs have no trust limits. For example, a common use case for an MPT is a [fiat-backed stablecoin](/docs/concepts/tokens/fungible-tokens/stablecoins#fiat-backed), where a token holder wouldn't purchase more stablecoins than they would feel comfortable holding.
-- Unlike some existing capabilities of the ledger, MPTs are not subject to [rippling](/docs/concepts/tokens/fungible-tokens/rippling) and  do not require configurability settings related to that functionality.
+| Field Name | Key | Type   | Required?  | Description |
+|:---------- |:--- |:------ |:--------- |:-------------|
+| uri        | `u` | String | Yes️       |`hostname/path` or full URI link to the related resource. |
+| category   | `c` | String | Yes       | The category of the link provided. Allowed values are: `website`, `social`, `docs`, `other`. |
+| title      | `t` | String | Yes       | Human-readable label for the link. |
 
-## MPTs versus IOUs
+#### Example JSON Metadata
 
-MPTs are different from IOUs in the following ways.
+The following example shows metadata for a treasury-backed token.
 
-**Technical Representation on the Ledger**
+```json
+{
+  "t": "TBILL",
+  "n": "T-Bill Yield Token",
+  "d": "A yield-bearing stablecoin backed by short-term U.S. Treasuries and money market instruments.",
+  "i": "example.org/tbill-icon.png",
+  "ac": "rwa",
+  "as": "treasury",
+  "in": "Example Yield Co.",
+  "us": [
+    {
+      "u": "exampleyield.co/tbill",
+      "c": "website",
+      "t": "Product Page"
+    },
+    {
+      "u": "exampleyield.co/docs",
+      "c": "docs",
+      "t": "Yield Token Docs"
+    }
+  ],
+  "ai": {
+    "interest_rate": "5.00%",
+    "interest_type": "variable",
+    "yield_source": "U.S. Treasury Bills",
+    "maturity_date": "2045-06-30",
+    "cusip": "912796RX0"
+  }
+}
+```
 
-On a technical level, MPTs provide a fundamentally different way to represent fungible tokens on the ledger.  While IOUs are represented by trustlines and have bilateral debt relationships, MPTs use a simpler, unilateral relationship captured by an MPToken object. This results in substantial space savings on the ledger. 
+### Transferability Controls
 
-The representation of a fungible token as a token object instead of a trustline makes it easier to enable functionality for real-world financial assets on-chain, such as token-level metadata, fixed supply, and fixed-point balance.
+MPTs can be configured with different levels of transferability controls by adjusting the following flags:
 
-**Developer Experience and App Design**
-On a usage level, MPTs provide a straightforward conceptual model compared to [trustlines](/docs/concepts/tokens/fungible-tokens#trust-lines) and [rippling](/docs/concepts/tokens/fungible-tokens/rippling). Developers can more easily build web3 applications around `[MPToken](/docs/references/protocol/ledger-data/ledger-entry-types/mptoken)` and `[MPTokenIssuance](/docs/references/protocol/ledger-data/ledger-entry-types/mptokenissuance)` objects, with some similarities to the conceptual model of XLS-20 NFTs.  
+- **Can Transfer:** If this flag is enabled, holders can transfer the token to each other. Otherwise, the MPT is non-transferable, meaning it can only be sent directly back to the issuer.
+- **Require Auth:** If this flag is enabled, holders must get explicit approval from the issuer before they can hold this token—in other words, it uses allow-listing. Otherwise, anyone can hold the token if they are willing.
+- **Can Trade:** If this flag is enabled, holders are allowed to trade the token in the decentralized exchange. However, trading MPTs in the DEX is not currently implemented.
+- **Can Escrow:** If this flag is enabled, holders are allowed to place the token in escrow. Otherwise, the token cannot be escrowed. {% amendment-disclaimer name="TokenEscrow" /%}
 
-It is also simpler for ordinary users to understand what tokens are available, what tokens they have issued, and what they hold in their wallet.  
+### Supply Cap
 
-For both issuers and holders of MPTs, there will typically be a smaller XRP reserve compared to the equivalent representations with IOU trustlines.
+MPTs can be configured with a supply cap, such that the number of tokens in circulation is never larger than this number.
 
-## Use Case and Long-Term Considerations
+Note that this is not a cap on the total number of tokens issued over time. If holders "burn" tokens by sending them back to the issuer, then the issuer can issue more tokens until the number in circulation is at the cap.
 
-MPTs are intended to be complementary to IOUs.  While there might be use cases where either MPTs or IOUs might be suitable, there will likely be a need for both over the long term.  There will be use cases such as credit lines for lending and borrowing that might be better represented by IOUs long term.  The MPT feature set should evolve in an incremental manner to unlock more common use cases first and deliver additional feature support at a later time. During the MPT development period, some cases might still be better represented by an IOU, and then later be better supported with MPTs.
+Even though issuers can't hold their own tokens, you can view the amount of tokens held by the issuer to be equal to the supply cap minus the number of tokens currently in circulation, since burning the tokens is the same as returning them to the issuer.
+
+### Transfer Fees
+
+MPTs can be configured with a transfer fee, so that holders must pay a percentage fee to transfer the tokens among themselves. The transfer fee does not apply when sending directly to the issuer, and non-transferable tokens cannot have a transfer fee.
+
+MPTs' transfer fees have a range from **0** to **50.000%** in increments of **0.0001%**. The transfer fee is charged on top of the amount delivered, and is paid by burning the tokens. For example, to deliver $100.00 with a transfer fee of 0.5%, the sender would pay $100.50, the receiver would get $100.00, and the remaining $0.50 would be burned.
+
+### Compliance Controls
+
+MPTs can be configured with different controls for managing the tokens, in addition to the [transferability controls](#transferability-controls). These controls include:
+
+- The issuer can lock and unlock a specific token holder's balance; while locked, it cannot increase or decrease except in payments directly to the issuer. This is functionally equivalent to [deep freeze](./deep-freeze.md) on trust line tokens.
+- The issuer can also globally lock (freeze) all MPTs of a particular issuance.
+- The issuer can claw back funds from a particular holder. This can be used to revoke them, or to reassign the tokens in case the holder lost the keys to their account.
+
+The power to perform these actions is controlled by two flags on the MPT issuance:
+
+- **Can Lock:** If enabled, the issuer can lock MPTs individually or globally. Otherwise, the MPTs cannot be locked/frozen in any way.
+- **Can Clawback:** If enabled, the issuer can claw back tokens from holders. Otherwise, the MPTs cannot be clawed back.
+
+### Simpler Conceptual Model
+
+The bidirectional model of trust line tokens, where two users could swap roles between issuer and holder in the middle of processing a transaction, is a source of complexity and tricky edge cases that is intentionally omitted from the MPT design.
+
+Each MPT issuance is totally separate and there is no rippling between tokens, only transferring between holders. MPT balances are always positive and use fixed-precision integers instead of floating-point math.
+
+MPTs _do_ still support [partial payments](../../payment-types/partial-payments.md), so it is still necessary to avoid the related pitfalls when processing MPT payments.
+
+
+## Limits on Issuing
+
+There is not intended to be a limit on how many MPT issuances you can create, but the technology does impose some hard and soft limits indirectly:
+
+- The ledger entry that defines an MPT issuance counts as one object towards the issuer's [owner reserve](../../accounts/reserves.md#owner-reserves), so the issuer needs to set aside {% $env.PUBLIC_OWNER_RESERVE %} per MPT issuance.
+- Each holder's balance of MPTs is tracked in both the holder's and issuer's [owner directories](/docs/references/protocol/ledger-data/ledger-entry-types/directorynode). The maximum number of items that can be in an owner directory is very large, but finite, which places a hard cap on how many MPT issuances you can issue.
+
+The data type that holds MPT balances has a valid range of **0** to **2<sup>63</sup>-1** (inclusive) in integer increments, so no more than that amount can exist in any one place. However, it is possible for multiple holders to each hold up to that amount at the same time, so that the total amount in circulation is higher. An MPT issuance's supply cap, if configured, is also limited by this range.
+
 
 ## See Also
  

@@ -1,17 +1,17 @@
 ---
-html: channel_authorize.html
-parent: payment-channel-methods.html
 seo:
     description: Sign a claim for money from a payment channel.
 labels:
-  - Payment Channels
+    - Payment Channels
 ---
 # channel_authorize
-[[Source]](https://github.com/XRPLF/rippled/blob/d4a56f223a3b80f64ff70b4e90ab6792806929ca/src/ripple/rpc/handlers/PayChanClaim.cpp#L41 "Source")
+[[Source]](https://github.com/XRPLF/rippled/blob/master/src/xrpld/rpc/handlers/PayChanClaim.cpp "Source")
 
-_(Added by the [PayChan amendment][] to be enabled.)_
+The `channel_authorize` method creates a signature that can be used to redeem a specific amount of XRP from a payment channel.
 
-The `channel_authorize` method creates a signature that can be used to redeem a specific amount of XRP or fungible tokens from a payment channel.
+{% partial file="/docs/_snippets/public-signing-note.md" /%}
+
+{% amendment-disclaimer name="PayChan" /%}
 
 ## Request Format
 An example of the request format:
@@ -67,7 +67,7 @@ The request includes the following parameters:
 | `seed_hex`     | String  | _(Optional)_ The secret seed to use to sign the claim. This must be the same key pair as the public key specified in the channel. Must be in hexadecimal format. If provided, you must also specify the `key_type`. Cannot be used with `secret`, `seed`, or `passphrase`. |
 | `passphrase`   | String  | _(Optional)_ A string passphrase to use to sign the claim. This must be the same key pair as the public key specified in the channel. The [key derived from this passphrase](../../../../concepts/accounts/cryptographic-keys.md#key-derivation) must match the public key specified in the channel. If provided, you must also specify the `key_type`. Cannot be used with `secret`, `seed`, or `seed_hex`. |
 | `key_type` | String | _(Optional)_ The [signing algorithm](../../../../concepts/accounts/cryptographic-keys.md#signing-algorithms) of the cryptographic key pair provided. Valid types are `secp256k1` or `ed25519`. The default is `secp256k1`. |
-| `amount` | Object or String | Cumulative amount of XRP, in drops, or fungible tokens to authorize. If the destination has already received a lesser amount from this channel, the signature created by this method can be redeemed for the difference. |
+| `amount` | String | Cumulative amount of XRP, in drops, to authorize. If the destination has already received a lesser amount from this channel, the signature created by this method can be redeemed for the difference. |
 
 The request **must** specify exactly one of `secret`, `seed`, `seed_hex`, or `passphrase`.
 

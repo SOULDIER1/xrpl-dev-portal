@@ -1,27 +1,32 @@
 ---
-blurb: Set mutable properties for an MPT.
+seo:
+    description: Set mutable properties of a Multi-Purpose Token definition.
 labels:
- - Multi-purpose Tokens, MPTs
+    - Multi-purpose Tokens, MPTs
 ---
 # MPTokenIssuanceSet
 [[Source]](https://github.com/XRPLF/rippled/blob/master/src/xrpld/app/tx/detail/MPTokenIssuanceSet.cpp "Source")
 
-Use this transaction to update a mutable property for a Multi-purpose Token. The transaction flags determine which change(s) to apply.
+Update a mutable property of a [Multi-purpose Token (MPT)](../../../../concepts/tokens/fungible-tokens/multi-purpose-tokens.md) issuance, including locking (freezing) or unlocking the tokens globally or for an individual holder.
 
 {% amendment-disclaimer name="MPTokensV1" /%}
 
-## Example
+## Example MPTokenIssuanceSet JSON
 
-```json 
+This example locks the balances of all holders of the specified MPT issuance.
+
+```json
 {
-      "TransactionType": "MPTokenIssuanceSet",
-      "Fee": "10",
-      "MPTokenIssuanceID": "00070C4495F14B0E44F78A264E41713C64B5F89242540EE255534400000000000000",
-      "Flags": 1
+    "TransactionType": "MPTokenIssuanceSet",
+    "Account": "rNFta7UKwcoiCpxEYbhH2v92numE3cceB6",
+    "MPTokenIssuanceID": "05EECEBE97A7D635DE2393068691A015FED5A89AD203F5AA",
+    "Fee": "10",
+    "Flags": 1,
+    "Sequence": 99536577
 }
 ```
 
-<!-- ## MPTokenIssuanceSet Fields -->
+{% tx-example txid="5DB41F975E3AC04DD4AE9E93764AFBBABB0E4C7322B2D6F2E84B253FAA170BF3" /%}
 
 {% raw-partial file="/docs/_snippets/tx-fields-intro.md" /%}
 
@@ -40,6 +45,7 @@ Transactions of the `MPTokenIssuanceSet` type support additional values in the `
 | `tfMPTLock`        | `0x00000001` | 1             | Enable to lock balances of this MPT issuance. |
 | `tfMPTUnlock`      | `0x00000002` | 2             | Enable to unlock balances of this MPT issuance. |
 
+
 ## Error Cases
 
 Besides errors that can occur for all transactions, {% $frontmatter.seo.title %} transactions can result in the following [transaction result codes](../transaction-results/index.md):
@@ -52,5 +58,10 @@ Besides errors that can occur for all transactions, {% $frontmatter.seo.title %}
 | `tecNO_PERMISSION`        | - The `lsfMPTCanLock` flag isn't enabled, but you are attempting to lock or unlock an MPT.<br>- The `SingleAssetVault` amendment is disabled and you're trying to modify a `DomainID` field. | 
 | `temMALFORMED`            | - You specified a `DomainID` and `Holder` value--only one can be set in a single transaction.<br>- You specified the same account for both `Acount` and `Holder`.<br>- The transaction isn't changing anything; it must either update a flag or modify the `DomainID`. |
 | `tecOBJECT_NOT_FOUND`    | The specified `MPToken`, `MPTokenIssuance`, or `PermissionedDomain` ledger entry doesn't exist. |
+
+
+## See Also
+
+- [MPTokenIssuance entry][]
 
 {% raw-partial file="/docs/_snippets/common-links.md" /%}

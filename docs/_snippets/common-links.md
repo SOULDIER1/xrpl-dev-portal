@@ -125,8 +125,6 @@
 [Ledger Index]: /docs/references/protocol/data-types/basic-data-types.md#ledger-index
 [LedgerHashes entry]: /docs/references/protocol/ledger-data/ledger-entry-types/ledgerhashes.md
 [LedgerHashes object]: /docs/references/protocol/ledger-data/ledger-entry-types/ledgerhashes.md
-[LedgerHashesエントリ]: /docs/references/protocol/ledger-data/ledger-entry-types/ledgerhashes.md
-[LedgerHashesオブジェクト]: /docs/references/protocol/ledger-data/ledger-entry-types/ledgerhashes.md
 [LedgerStateFix transaction]: /docs/references/protocol/transactions/types/ledgerstatefix.md
 [LedgerStateFix transactions]: /docs/references/protocol/transactions/types/ledgerstatefix.md
 [LedgerStateFix]: /docs/references/protocol/transactions/types/ledgerstatefix.md
@@ -195,20 +193,20 @@
 [PermissionDelegation amendment]: /resources/known-amendments.md#permissiondelegation
 [PermissionedDEX amendment]: /resources/known-amendments.md#permissioneddex
 [Permissioned DEXes]: /docs/concepts/tokens/decentralized-exchange/permissioned-dexes.md
+[PermissionedDomain entry]: /docs/references/protocol/ledger-data/ledger-entry-types/permissioneddomain.md
+[PermissionedDomainDelete transaction]: /docs/references/protocol/transactions/types/permissioneddomaindelete.md
 [PermissionedDomainSet transaction]: /docs/references/protocol/transactions/types/permissioneddomainset.md
-[PermissionedDomainSetトランザクション]: /@l10n/ja/docs/references/protocol/transactions/types/permissioneddomainset.md
 [PermissionedDomains amendment]: /resources/known-amendments.md#permissioneddomains
 [permissioned domain]: /docs/concepts/tokens/decentralized-exchange/permissioned-domains.md
-[許可型ドメイン]: /@l10n/ja/docs/concepts/tokens/decentralized-exchange/permissioned-domains.md
 [PriceOracle amendment]: /resources/known-amendments.md#priceoracle
 [MPToken entry]: /docs/references/protocol/ledger-data/ledger-entry-types/mptoken.md
 [MPTokenAuthorize transaction]: /docs/references/protocol/transactions/types/mptokenauthorize.md
+[MPTokenIssuance entry]: /docs/references/protocol/ledger-data/ledger-entry-types/mptokenissuance.md
 [MPTokenIssuanceCreate transaction]: /docs/references/protocol/transactions/types/mptokenissuancecreate.md
 [MPTokenIssuanceDestroy transaction]: /docs/references/protocol/transactions/types/mptokenissuancedestroy.md
 [MPTokenIssuanceSet transaction]: /docs/references/protocol/transactions/types/mptokenissuanceset.md
 [MPTokensV1_1 amendment]: /resources/known-amendments.md#priceoracle
 [RFC-1751]: https://tools.ietf.org/html/rfc1751
-[Reporting Mode]: /docs/concepts/networks-and-servers/rippled-server-modes.md#reporting-mode
 [RequireFullyCanonicalSig amendment]: /resources/known-amendments.md#requirefullycanonicalsig
 [RippleState entry]: /docs/references/protocol/ledger-data/ledger-entry-types/ripplestate.md
 [RippleState object]: /docs/references/protocol/ledger-data/ledger-entry-types/ripplestate.md
@@ -264,6 +262,7 @@
 [XChainCreateClaimID transaction]: /docs/references/protocol/transactions/types/xchaincreateclaimid.md
 [XChainCreateClaimID transactions]: /docs/references/protocol/transactions/types/xchaincreateclaimid.md
 [XChainCreateClaimID]: /docs/references/protocol/transactions/types/xchaincreateclaimid.md
+[XChainOwnedCreateAccountClaimID entry]: /docs/references/protocol/ledger-data/ledger-entry-types/xchainownedcreateaccountclaimid.md
 [XChainOwnedClaimID entry]: /docs/references/protocol/ledger-data/ledger-entry-types/xchainownedclaimid
 [XRP, in drops]: /docs/references/protocol/data-types/basic-data-types.md#specifying-currency-amounts
 [XRPFees amendment]: /resources/known-amendments.md#xrpfees
@@ -300,14 +299,10 @@
 [connect method]: /docs/references/http-websocket-apis/admin-api-methods/peer-management-methods/connect.md
 [consensus_info command]: /docs/references/http-websocket-apis/admin-api-methods/status-and-debugging-methods/consensus_info.md
 [consensus_info method]: /docs/references/http-websocket-apis/admin-api-methods/status-and-debugging-methods/consensus_info.md
-[crawl_shards command]: /docs/references/http-websocket-apis/admin-api-methods/logging-and-data-management-methods/crawl_shards.md
-[crawl_shards method]: /docs/references/http-websocket-apis/admin-api-methods/logging-and-data-management-methods/crawl_shards.md
 [crypto-condition]: https://tools.ietf.org/html/draft-thomas-crypto-conditions-04
 [crypto-conditions]: https://tools.ietf.org/html/draft-thomas-crypto-conditions-04
 [deposit_authorized command]: /docs/references/http-websocket-apis/public-api-methods/path-and-order-book-methods/deposit_authorized.md
 [deposit_authorized method]: /docs/references/http-websocket-apis/public-api-methods/path-and-order-book-methods/deposit_authorized.md
-[download_shard command]: /docs/references/http-websocket-apis/admin-api-methods/logging-and-data-management-methods/download_shard.md
-[download_shard method]: /docs/references/http-websocket-apis/admin-api-methods/logging-and-data-management-methods/download_shard.md
 [drops of XRP]: /docs/references/protocol/data-types/basic-data-types.md#specifying-currency-amounts
 [feature command]: /docs/references/http-websocket-apis/admin-api-methods/status-and-debugging-methods/feature.md
 [feature method]: /docs/references/http-websocket-apis/admin-api-methods/status-and-debugging-methods/feature.md

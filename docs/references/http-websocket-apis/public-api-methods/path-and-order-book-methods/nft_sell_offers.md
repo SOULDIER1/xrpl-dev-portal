@@ -1,17 +1,15 @@
 ---
-html: nft_sell_offers.html
-parent: path-and-order-book-methods.html
 seo:
     description: Get a list of all sell offers for a NFToken.
 labels:
-  - Non-fungible Tokens, NFTs, NFTokens
+    - NFTs
 ---
 # nft_sell_offers
-[[Source]](https://github.com/XRPLF/rippled/blob/master/src/ripple/rpc/handlers/NFTOffers.cpp "Source")
+[[Source]](https://github.com/XRPLF/rippled/blob/master/src/xrpld/rpc/handlers/NFTOffers.cpp "Source")
 
 The `nft_sell_offers` method returns a list of sell offers for a given [NFToken][] object.
 
-_(Added by the [NonFungibleTokensV1_1 amendment][].)_
+{% amendment-disclaimer name="NonFungibleTokensV1_1" /%}
 
 ## Request Format
 An example of the request format:

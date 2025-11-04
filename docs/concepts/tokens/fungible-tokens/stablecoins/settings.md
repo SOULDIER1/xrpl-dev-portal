@@ -30,7 +30,7 @@ A transfer fee setting charges users a percentage fee when transferring tokens b
 
 When users send a token with a transfer fee, the amount of the transfer fee is debited from the sending side in addition to the destination amount, but only the destination amount is credited to the recipient. The amount of the fee "vanishes" from the XRP Ledger. As a stablecoin issuer, this means that you gain that much equity in your reserves outside of the XRP Ledger—or, in other words, the amount you need to keep as collateral decreases each time users pay a transfer fee.
 
-For more information, see [Transfer Fees](../../transfer-fees.md).
+For more information, see [Transfer Fees](../transfer-fees.md).
 
 
 ## Set Your Tick Size
@@ -80,12 +80,11 @@ See [Freezing Tokens](../freezes.md).
 
 ### Clawback Flags
 
-_(Requires the [Clawback amendment](/resources/known-amendments.md#clawback))_
-
 Clawback allows you to retrieve, or _clawback_, stablecoins from a trust line under specific circumstances. This gives you added ability to respond to challenges such as lost account access or malicious activity.
 
 See [Clawback](../../../../references/protocol/transactions/types/clawback.md).
 
+{% amendment-disclaimer name="Clawback" /%}
 
 ### Fixed Supply
 

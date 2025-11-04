@@ -1,15 +1,13 @@
 ---
-html: paymentchannelclaim.html
-parent: transaction-types.html
 seo:
-    description: Claim money from a payment channel.
+    description: Claim funds from a payment channel.
 labels:
-  - Payment Channels
+    - Payment Channels
 ---
 # PaymentChannelClaim
 [[Source]](https://github.com/XRPLF/rippled/blob/master/src/xrpld/app/tx/detail/PayChan.cpp "Source")
 
-Claim funds from a payment channel, adjust the payment channel's expiration, or both. This transaction can be used differently depending on the transaction sender's role in the specified channel:
+Claim funds from a [payment channel](../../../../concepts/payment-types/payment-channels.md), adjust the payment channel's expiration, or both. This transaction can be used differently depending on the transaction sender's role in the specified channel:
 
 The **source address** of a channel can:
 
@@ -27,7 +25,7 @@ The **destination address** of a channel can:
 
 - Cause a channel to be closed if its `Expiration` or `CancelAfter` time is older than the previous ledger's close time. Any validly formed `PaymentChannelClaim` transaction has this effect, regardless of the contents of the transaction.
 
-_(Added by the [PayChan amendment][].)_
+{% amendment-disclaimer name="PayChan" /%}
 
 
 ## Example {% $frontmatter.seo.title %} JSON
@@ -53,8 +51,8 @@ _(Added by the [PayChan amendment][].)_
 
 | Field           | JSON Type            | [Internal Type][] | Required? | Description |
 |:----------------|:---------------------|:------------------|:----------|:------------|
-| `Amount`        | [Currency Amount][]  | Amount            | No        | The amount of [XRP, in drops][Currency Amount], or fungible tokens authorized by the `Signature`. This must match the amount in the signed message. This is the cumulative amount that can be dispensed by the channel, including funds previously redeemed. Non-XRP tokens can only be used if the [TokenEscrow amendment][] {% not-enabled /%} is enabled. |
-| `Balance`       | [Currency Amount][]  | Amount            | No        | Total amount of [XRP, in drops][Currency Amount], or fungible tokens delivered by this channel after processing this claim. Required to deliver XRP or fungible tokens. Must be more than the total amount delivered by the channel so far, but not greater than the `Amount` of the signed claim. Must be provided except when closing the channel.  Non-XRP tokens can only be used if the [TokenEscrow amendment][] {% not-enabled /%} is enabled. |
+| `Amount`        | [Currency Amount][]  | Amount            | No        | The amount of XRP, in drops, authorized by the `Signature`. This must match the amount in the signed message. This is the cumulative amount of XRP that can be dispensed by the channel, including XRP previously redeemed. Must be provided except when closing the channel.|
+| `Balance`       | [Currency Amount][]  | Amount            | No        | Total amount of XRP, in drops, delivered by this channel after processing this claim. Required to deliver XRP. Must be more than the total amount delivered by the channel so far, but not greater than the `Amount` of the signed claim. Must be provided except when closing the channel. |
 | `Channel`       | String - Hexadecimal | UInt256           | Yes       | The unique ID of the channel. |
 | `CredentialIDs` | Array of Strings     | Vector256         | No        | Set of credentials to authorize a deposit made by this transaction. Each member of the array must be the ledger entry ID of a Credential entry in the ledger. For details, see [Credential IDs](./payment.md#credential-ids). |
 | `PublicKey`     | String - Hexadecimal | Blob              | No        | The public key used for the signature. This must match the `PublicKey` stored in the ledger for the channel. Required unless the sender of the transaction is the source address of the channel and the `Signature` field is omitted. (The transaction includes the public key so that `rippled` can check the validity of the signature before trying to apply the transaction to the ledger.) |
@@ -71,5 +69,9 @@ Transactions of the `PaymentChannelClaim` type support additional values in the 
 |:----------|:-------------|:--------------|:----------------------------------|
 | `tfRenew` | `0x00010000` | 65536         | Clear the channel's `Expiration` time. (`Expiration` is different from the channel's immutable `CancelAfter` time.) Only the source address of the payment channel can use this flag. |
 | `tfClose` | `0x00020000` | 131072        | Request to close the channel. Only the channel source and destination addresses can use this flag. This flag closes the channel immediately if it has no more XRP allocated to it after processing the current claim, or if the destination address uses it. If the source address uses this flag when the channel still holds XRP, this schedules the channel to close after `SettleDelay` seconds have passed. (Specifically, this sets the `Expiration` of the channel to the close time of the previous ledger plus the channel's `SettleDelay` time, unless the channel already has an earlier `Expiration` time.) If the destination address uses this flag when the channel still holds XRP, any XRP that remains after processing the claim is returned to the source address. |
+
+## See Also
+
+- [PayChannel entry][]
 
 {% raw-partial file="/docs/_snippets/common-links.md" /%}

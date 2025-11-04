@@ -9,7 +9,7 @@ labels:
 
 (Not to be confused with the ["ledger hash" string data type][Hash], which uniquely identifies a ledger version. This page describes the `LedgerHashes` ledger entry type.)
 
-The `LedgerHashes` ledger entry type contains a history of prior ledgers that led up to this ledger version, in the form of their hashes. Entries of this type are modified automatically when closing a ledger. (This is one of the only times a ledger's state data is modified without a [transaction](../../../../concepts/transactions/index.md) or [pseudo-transaction](../../transactions/pseudo-transaction-types/pseudo-transaction-types.md).) The `LedgerHashes` entries exist to make it possible to look up a previous ledger's hash with only the current ledger version and at most one lookup of a previous ledger version.
+The `LedgerHashes` ledger entry type contains a history of prior ledgers that led up to this ledger version, in the form of their hashes. Entries of this type are modified automatically when closing a ledger. (This is one of the only times a ledger's state data is modified without a [transaction](../../../../concepts/transactions/index.md) or [pseudo-transaction](../../transactions/pseudo-transaction-types/index.md).) The `LedgerHashes` entries exist to make it possible to look up a previous ledger's hash with only the current ledger version and at most one lookup of a previous ledger version.
 
 There are two kinds of `LedgerHashes` entry. Both types have the same fields. Each ledger version contains:
 
@@ -72,7 +72,7 @@ There are no flags defined for {% code-page-name /%} entries.
 
 
 ## LedgerHashes ID Formats
-[[Source]](https://github.com/XRPLF/rippled/blob/master/src/ripple/protocol/impl/Indexes.cpp#L26-L42)
+[[Source]](https://github.com/XRPLF/rippled/blob/70d5c624e8cf732a362335642b2f5125ce4b43c1/src/libxrpl/protocol/Indexes.cpp#L195-L211)
 
 There are two formats for `LedgerHashes` ledger entry IDs, depending on whether the entry is a "recent history" sub-type or a "previous history" sub-type.
 

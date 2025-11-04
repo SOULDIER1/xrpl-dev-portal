@@ -1,13 +1,13 @@
 ---
 seo:
-    description: An attestation about a subject account from a credential issuer account, which can be used to preauthorize payments.
+    description: A credential, which can be used to preauthorize payments or gain access to specific permissioned domains.
 status: not_enabled
 ---
 # Credential
 
 A `Credential` entry represents a [credential](../../../../concepts/decentralized-storage/credentials.md), which contains an attestation about a _subject_ account from a _credential issuer_ account. The meaning of the attestation is defined by the issuer.
 
-_(Requires the [Credentials amendment][] {% not-enabled /%})_
+{% amendment-disclaimer name="Credentials" /%}
 
 ## Example Credential JSON
 

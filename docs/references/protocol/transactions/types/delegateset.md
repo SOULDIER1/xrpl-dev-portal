@@ -1,6 +1,6 @@
 ---
 seo:
-    description: An transaction that delegates a set of permissions to another account.
+    description: Grant another account permission to send some transactions for you, or revoke that permission.
 labels:
   - Accounts
   - Permissions
@@ -12,7 +12,7 @@ status: not_enabled
 
 [Delegate permissions](/docs/concepts/accounts/permission-delegation) to another account to send transactions on your behalf. This transaction type can grant, change, or revoke permissions; it creates, modifies, or deletes a [Delegate ledger entry][] accordingly.
 
-_(Requires the [PermissionDelegation amendment][] {% not-enabled /%}.)_
+{% amendment-disclaimer name="PermissionDelegation" /%}
 
 ## Example {% $frontmatter.seo.title %} JSON
 

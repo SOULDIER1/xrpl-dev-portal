@@ -2,11 +2,11 @@
 seo:
     description: Get info about offers to exchange two currencies.
 labels:
-  - Decentralized Exchange
-  - Cross-Currency
+    - Decentralized Exchange
+    - Cross-Currency
 ---
 # book_offers
-[[Source]](https://github.com/XRPLF/rippled/blob/master/src/ripple/rpc/handlers/BookOffers.cpp "Source")
+[[Source]](https://github.com/XRPLF/rippled/blob/master/src/xrpld/rpc/handlers/BookOffers.cpp "Source")
 
 The `book_offers` method retrieves a list of [offers](../../../../concepts/tokens/decentralized-exchange/offers.md) between two currencies, also known as an _order book_. The response omits [unfunded offers](../../../../concepts/tokens/decentralized-exchange/offers.md#lifecycle-of-an-offer) and reports how much of each remaining offer's total is currently funded.
 
@@ -71,7 +71,7 @@ The request includes the following parameters:
 |:---------------|:-----------------|:----------|-------------|
 | `taker_gets`   | Object           | Yes       | The asset the account taking the offer would receive, as a [currency without an amount](../../../protocol/data-types/currency-formats.md#specifying-without-amounts). |
 | `taker_pays`   | Object           | Yes       | The asset the account taking the offer would pay, as a [currency without an amount](../../../protocol/data-types/currency-formats.md#specifying-without-amounts). |
-| `domain`       | [Hash][]         | No        | The ledger entry ID of a permissioned domain. If provided, return offers from the corresponding [permissioned DEX](../../../../concepts/tokens/decentralized-exchange/permissioned-dexes.md) instead of using the open DEX. _(Requires the [PermissionedDEX amendment][] {% not-enabled /%})_ |
+| `domain`       | [Hash][]         | No        | The ledger entry ID of a permissioned domain. If provided, return offers from the corresponding [permissioned DEX](../../../../concepts/tokens/decentralized-exchange/permissioned-dexes.md) instead of using the open DEX. {% amendment-disclaimer name="PermissionedDEX" /%} |
 | `ledger_hash`  | [Hash][]         | No        | The unique hash of the ledger version to use. (See [Specifying Ledgers][]) |
 | `ledger_index` | [Ledger Index][] | No        | The [ledger index][] of the ledger to use, or a shortcut string to choose a ledger automatically. (See [Specifying Ledgers][]) |
 | `limit`        | Number           | No        | The maximum number of offers to return. The response may include fewer results. |

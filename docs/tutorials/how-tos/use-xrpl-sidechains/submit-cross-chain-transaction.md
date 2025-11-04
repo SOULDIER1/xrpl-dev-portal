@@ -1,16 +1,14 @@
 ---
-html: submit-cross-chain-transactions.html
-parent: use-xrpl-sidechains.html
 seo:
     description: Steps to submit a cross-chain transaction, using a bridge.
 labels:
-  - Interoperability
+    - Interoperability
 ---
 # Submit Cross-chain Transactions
 
-_(Requires the [XChainBridge amendment][] {% not-enabled /%})_
-
 This tutorial explains how to create a test account on a locking chain (_Devent_), and transfer XRP to an issuing chain (_Sidechain-Devnet_), using a supported [client library](../../../references/client-libraries.md) to query and submit transactions. Witness servers are already set up to monitor the XRP-XRP bridge and submit attestations.
+
+{% amendment-disclaimer name="XChainBridge" /%}
 
 ## Prerequisites
 
@@ -27,7 +25,7 @@ This tutorial explains how to create a test account on a locking chain (_Devent_
 const xrpl = require('xrpl')
 
 const WS_URL_lockingchain = 'wss://s.devnet.rippletest.net:51233/' // Locking chain
-const WS_URL_issuingchain = 'wss://sidechain-net2.devnet.rippletest.net:51233/' // Issuing chain
+const WS_URL_issuingchain = 'wss://example-sidechain.net:12345/' // Issuing chain
 
 // Define the XChainBridge
 const xchainbridge = {

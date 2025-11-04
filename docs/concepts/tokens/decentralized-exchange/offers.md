@@ -85,7 +85,7 @@ Trust line limits protect you from receiving more of a token as payment than you
 
 Existing Offers are grouped by exchange rate, which is measured as the ratio between `TakerGets` and `TakerPays`. Offers with a higher exchange rate are taken preferentially. (That is, the person accepting the offer receives as much as possible for the amount of currency they pay out.) Offers with the same exchange rate are taken on the basis of which offer was placed first.
 
-When Offers execute in the same ledger block, the order in which they execute is determined by the [canonical order](https://github.com/XRPLF/rippled/blob/release/src/ripple/app/misc/CanonicalTXSet.cpp "Source code: Transaction ordering") in which the transactions were [applied to the ledger](https://github.com/XRPLF/rippled/blob/5425a90f160711e46b2c1f1c93d68e5941e4bfb6/src/ripple/app/consensus/LedgerConsensus.cpp#L1435-L1538 "Source code: Applying transactions"). This behavior is designed to be deterministic, efficient, and hard to game.
+When Offers execute in the same ledger block, the order in which they execute is determined by the [canonical order](https://github.com/XRPLF/rippled/blob/master/src/xrpld/app/misc/CanonicalTXSet.cpp "Source code: Transaction ordering") in which transactions were applied to the ledger. Transactions that fail initially can be pushed back and retried at the end of the ledger. This behavior is designed to be deterministic, efficient, and hard to game.
 
 
 ## Offer Expiration
@@ -97,6 +97,16 @@ Expiration times are specified down to the second, but the exact, real-world tim
 This is a consequence of how the network reaches agreement. For the entire peer-to-peer network to reach a consensus, all servers must agree which Offers are expired when executing transactions. Individual servers may have slight differences in their internal clock settings, so they might not reach the same conclusions about which Offers were expired if they each used the "current" time. The close time of a ledger is not known until after the transactions in that ledger have been executed, so servers use the official close time of the _previous_ ledger instead. The [close times of ledgers are rounded](../../ledgers/ledger-close-times.md), which further increases the potential difference between real-world time and the time used to determine if an Offer is expired.
 
 {% admonition type="info" name="Note" %}Expired Offers remain in the ledger data until a transaction removes them. Until then, they can continue to appear in data retrieved from the API (for example, using the [ledger_entry method][]). Transactions automatically delete any expired and unfunded Offers they find, usually while executing Offers or cross-currency payments that would have matched or canceled them. The owner reserve associated with an Offer is only made available again when the Offer is actually deleted.{% /admonition %}
+
+## Permissioned and Hybrid Offers
+
+By specifying a valid **permissioned domain ID**, you can place offers into a permissioned DEX instead of using the open DEX. You can only place a _permissioned offer_ if you hold the [credentials](../../decentralized-storage/credentials.md) required by the permissioned domain, and permissioned offers can only match other offers in the same permissioned domain. You can also place a _hybrid offer_ by using a domain ID and the Hybrid flag. Hybrid offers work like permissioned offers except that they can also match offers in the open DEX. Businesses with strict compliance requirements may want to use a permissioned DEX exclusively while traders with more relaxed compliance requirements can use hybrid offers to provide liquidity in more places.
+
+In most ways, permissioned and hybrid offers function like regular offers. They support all the same options, such as Fill-or-Kill, and are subject to the same requirements like the reserve per offer. One difference is that offers in a permissioned DEX can become _invalid_ if the account placing the offer loses access to the permissioned domain, for example because their credentials expired.
+
+For more information, see [Permissioned DEXes](./permissioned-dexes.md).
+
+{% amendment-disclaimer name="PermissionedDEX" /%}
 
 
 ## See Also

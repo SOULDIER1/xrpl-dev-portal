@@ -1,13 +1,11 @@
 ---
-html: manifest.html
-parent: server-info-methods.html
 seo:
     description: Look up the public information about a known validator.
 labels:
-  - Blockchain
+    - Blockchain
 ---
 # manifest
-[[Source]](https://github.com/XRPLF/rippled/blob/master/src/ripple/rpc/handlers/Manifest.cpp "Source")
+[[Source]](https://github.com/XRPLF/rippled/blob/master/src/xrpld/rpc/handlers/DoManifest.cpp "Source")
 
 The {% code-page-name /%} method reports the current "manifest" information for a given validator public key. The "manifest" is a block of data that authorizes an ephemeral signing key with a signature from the validator's master key pair. {% badge href="https://github.com/XRPLF/rippled/releases/tag/1.7.0" %}Updated in: rippled 1.7.0{% /badge %}
 
@@ -150,6 +148,5 @@ If provided, the `details` object contains the following fields:
 
 - Any of the [universal error types][].
 - `invalidParams` - The `public_key` field was missing or specified incorrectly.
-- `reportingUnsupported` - ([Reporting Mode][] servers only) This method is not available in Reporting Mode.
 
 {% raw-partial file="/docs/_snippets/common-links.md" /%}

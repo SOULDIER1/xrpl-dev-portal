@@ -1,8 +1,6 @@
 ---
-html: ticket.html
-parent: ledger-entry-types.html
 seo:
-    description: A Ticket tracks an account sequence number that has been set aside for future use.
+    description: A ticket, which sets aside a sequence number for use in a future transaction.
 labels:
   - Transaction Sending
 ---
@@ -11,7 +9,7 @@ labels:
 
 A `Ticket` entry type represents a [Ticket](../../../../concepts/accounts/tickets.md), which tracks an account [sequence number][Sequence Number] that has been set aside for future use. You can create new tickets with a [TicketCreate transaction][].
 
-_(Added by the [TicketBatch amendment][].)_
+{% amendment-disclaimer name="TicketBatch" /%}
 
 
 ## Example {% $frontmatter.seo.title %} JSON
@@ -59,5 +57,10 @@ The ID of a Ticket object is the SHA-512Half of the following values, concatenat
 * The Ticket space key (`0x0054`)
 * The AccountID of the owner of the Ticket
 * The `TicketSequence` number of the Ticket
+
+## See Also
+
+- **Transactions:**
+  - [TicketCreate transaction][]
 
 {% raw-partial file="/docs/_snippets/common-links.md" /%}

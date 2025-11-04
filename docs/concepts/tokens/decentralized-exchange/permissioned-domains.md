@@ -2,8 +2,9 @@
 seo:
     description: Learn how Permissioned Domains on the XRP Ledger enable controlled, secure blockchain environments. Explore their role in decentralized exchanges (DEXes) and lending protocols.
 labels:
-  - Compliance
-  - Permissioned Domains
+    - Compliance
+    - Permissioned Domains
+status: not_enabled
 ---
 # Permissioned Domains
 
@@ -13,7 +14,7 @@ The only configurable rule for a domain is the set of accepted [credentials][]. 
 
 Anyone can define a permissioned domain in the ledger. That person becomes the owner of that domain, and can update its settings or delete it. The only limit to the number of domains that can exist in the ledger is the reserve requirement: each Domain counts as one item toward its owner's reserve requirement.
 
-_(Requires the [PermissionedDomains amendment][] {% not-enabled /%})_
+{% amendment-disclaimer name="PermissionedDomains" /%}
 
 {% admonition type="info" name="Note" %}
 The [Credentials amendment][] is also required. If the [PermissionedDomains amendment][] is enabled without Credentials, PermissionedDomainSet transactions are considered invalid.

@@ -20,6 +20,7 @@ const brazil = require("../static/img/events/event-meetup-brazil.png");
 const infoSession2 = require("../static/img/events/xrpl-builder-office-hours-02.png");
 const infoSession3 = require("../static/img/events/xrpl-builder-office-hours-03.png");
 const infoSession4 = require("../static/img/events/xrpl-builder-office-hours-04.png");
+const italyHackathon = require("../static/img/events/italy-hackathon.png");
 const events = [
   {
     name: "New Horizon: Innovate Without Limits: New Horizons Await",
@@ -345,6 +346,66 @@ const events = [
     start_date: "June 30, 2025",
     end_date: "June 30, 2025",
   },
+  {
+    name: "EasyA x Flare Harvard Hackathon",
+    description:
+      "Collaborate, learn, and connect with fellow blockchain innovators and the Flare Networks team at Harvard.",
+    type: "hackathon",
+    link: "https://www.easya.io/events/easya-x-flare-harvard-hackathon",
+    location: "Boston, MA",
+    date: "September 20 - 21, 2025",
+    image: hackathon,
+    start_date: "September 20, 2025",
+    end_date: "September 21, 2025",
+  },
+  {
+    name: "XRP Seoul Summit 2025",
+    description:
+      "Join XRP Seoul 2025, Asia’s largest XRP & Web3 conference, and explore the future of the industry.",
+    type: "conference",
+    link: "https://xrp-seoul.com/",
+    location: "Seoul, South Korea",
+    date: "September 21, 2025",
+    image: conference,
+    end_date: "September 21, 2025",
+    start_date: "September 21, 2025",
+  },
+  {
+    name: "IXH25 - Italian XRPL Hackathon 2025",
+    description:
+      "A 3-day hackathon in Rome on cryptography and blockchain, featuring tracks on advanced cryptography and XRPL applications. Organized by XRPL Commons and partners, the event offers a €10,000 prize pool, includes seminars, coding and pitch sessions, and provides support for students.",
+    type: "hackathon",
+    link: "https://luma.com/llwjrmcx",
+    location: "Rome, Italy",
+    date: "November 07, 2025",
+    image: italyHackathon,
+    end_date: "November 08, 2025",
+    start_date: "November 07, 2025",
+  },
+  {
+    name: "Vega House Hackathon",
+    description:
+      "Vega House Hackathon: Compete in two XRPL tracks—Ledger Track to build MVP financial services using payments, tokenization, RLUSD, or AMM/DEX flows, and Exploration Track to create innovative apps leveraging XRPL features and upcoming amendments. Prizes total $25,000, including track awards and bounties for best use of new XRPL features.",
+    type: "hackathon",
+    link: "https://xrpl.vegahacks.xyz/",
+    location: "Virtual",
+    date: "October 01 - November 14, 2025",
+    image: italyHackathon,
+    end_date: "November 14, 2025",
+    start_date: "October 01, 2025",
+  },
+  {
+    name: "XRPL Hackathon @ Blockchain Kaigi 2025",
+    description:
+      "This is a 3-week online hackathon culminating in demos and an awards ceremony to be held in conjunction with Blockchain Kaigi 2025 in Mumbai, India.",
+    type: "hackathon",
+    link: "https://luma.com/ypj8ecj0",
+    location: "Online (with demos at IIT Bombay)",
+    date: "November 14 - December 06, 2025",
+    image: require("../static/img/events/hackathon-kaigi.png"),
+    start_date: "November 14, 2025",
+    end_date: "December 06, 2025",
+  },
 
 ];
 
@@ -592,8 +653,7 @@ const CommunityPage: React.FC = () => {
       </section>
       {/* Community Table Section */}
       <section id="community-table" className="hot-topics">
-        <h6 className="eyebrow-convo">{translate("Join the Conversation")}</h6>
-        <h4>{translate("Hot Topics Happening Now")}</h4>
+        <h4>{translate("Join the Conversation")}</h4>
         <table>
           <tbody>
             <tr>
@@ -602,12 +662,12 @@ const CommunityPage: React.FC = () => {
               </td>
               <td>
                 {translate(
-                  "AMA with Edge Wallet: Learn more about Edge Wallet and how they are building on the XRP Ledger."
+                  "Join the XRPL Discord to connect and network with builders, validators, and cryptocurrency enthusiasts."
                 )}
               </td>
               <td>
                 <a
-                  href="https://discord.com/channels/886050993802985492/950893687313940582/1162480612209332345"
+                  href="https://discord.gg/xrpl"
                   target="_blank"
                   className="text-external-link"
                 >
@@ -621,12 +681,12 @@ const CommunityPage: React.FC = () => {
               </td>
               <td>
                 {translate(
-                  "Clawback: A newly proposed feature that adds to the XRP Ledger's token asset control capabilities."
+                  "Follow @RippleXDev on X for the latest updates on the XRP Ledger ecosystem."
                 )}
               </td>
               <td>
                 <a
-                  href="https://x.com/RippleXDev/status/1708889238471950610?s=20"
+                  href="https://x.com/RippleXDev"
                   target="_blank"
                   className="text-external-link"
                 >
@@ -640,12 +700,12 @@ const CommunityPage: React.FC = () => {
               </td>
               <td>
                 {translate(
-                  "APEX 2023: View keynote sessions from the annual developer summit where developers, contributors, and thought leaders come together to learn, build, and celebrate all things XRP Ledger."
+                  "APEX 2025: View keynote sessions from the Apex 2025 where developers, entrepreneurs, and industry leaders come together to learn, build, and celebrate all things XRP Ledger."
                 )}
               </td>
               <td>
                 <a
-                  href="https://www.youtube.com/playlist?list=PLJQ55Tj1hIVZBdGc33An5Is6IFMxw3D7u"
+                  href="https://youtube.com/playlist?list=PLl-QsmXvjodqxEjtUqEv3u2o2Zd6zqkNA&feature=shared"
                   target="_blank"
                   className="text-external-link"
                 >
@@ -659,12 +719,12 @@ const CommunityPage: React.FC = () => {
               </td>
               <td>
                 {translate(
-                  "Deep Dive into XRPL DeFi Course: Learn about the inner workings of decentralized finance including safety and security, auto-bridging, pathfinding, liquidity pools, and more."
+                  "Explore DeFi-Island: A 3D open-source world on the XRPL testnet. Chat with residents, complete quests, and dive into this React.js-powered experience—all in your web browser."
                 )}
               </td>
               <td>
                 <a
-                  href="https://learn.xrpl.org/course/deep-dive-into-xrpl-defi/"
+                  href="https://learn.xrpl.org/react-3d-game/"
                   target="_blank"
                   className="text-external-link"
                 >
@@ -821,7 +881,7 @@ const CommunityPage: React.FC = () => {
       </section>
       {/* Bottom Cards Section 2 cards */}
       <section className="bottom-cards-section bug-bounty">
-        <div className="com-card">
+        <div className="com-card ripplex-bug-bounty">
           <img className="top-right-img bug-bounty-card-bg" alt="Top Right Image" />
           <div className="card-content">
             <h6 className="card-title">

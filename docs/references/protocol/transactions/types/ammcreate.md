@@ -1,10 +1,8 @@
 ---
-html: ammcreate.html
-parent: transaction-types.html
 seo:
     description: Create a new Automated Market Maker for trading a given pair of assets.
 labels:
-  - AMM
+    - AMM
 ---
 # AMMCreate
 [[Source]](https://github.com/XRPLF/rippled/blob/master/src/xrpld/app/tx/detail/AMMCreate.cpp "Source")
@@ -15,26 +13,37 @@ Creates both an [AMM entry][] and a [special AccountRoot entry](../../ledger-dat
 
 {% admonition type="warning" name="Caution" %}When you create the AMM, you should fund it with (approximately) equal-value amounts of each asset. Otherwise, other users can profit at your expense by trading with this AMM ([performing arbitrage](https://www.machow.ski/posts/an_introduction_to_automated_market_makers/#price-arbitrage)). The currency risk that liquidity providers take on increases with the volatility (potential for imbalance) of the asset pair. The higher the trading fee, the more it offsets this risk, so it's best to set the trading fee based on the volatility of the asset pair.{% /admonition %}
 
-_(Added by the [AMM amendment][].)_
+{% amendment-disclaimer name="AMM" /%}
 
 ## Example {% $frontmatter.seo.title %} JSON
 
 ```json
 {
-    "Account" : "rJVUeRqDFNs2xqA7ncVE6ZoAhPUoaJJSQm",
-    "Amount" : {
-        "currency" : "TST",
-        "issuer" : "rP9jPyP5kyvFRb6ZiRghAGw5u8SGAmU4bd",
-        "value" : "25"
-    },
-    "Amount2" : "250000000",
-    "Fee" : "2000000",
-    "Flags" : 2147483648,
-    "Sequence" : 6,
-    "TradingFee" : 500,
-    "TransactionType" : "AMMCreate"
+  "Account": "r3qNwezAqKp2FRFteiFjhC4V1at4KePFx7",
+  "Amount": {
+    "currency": "SKY",
+    "issuer": "rSKYachd4cqUgztsTr83mEKTAcNZG4Ez2",
+    "value": "80"
+  },
+  "Amount2": "20000000",
+  "Fee": "200000",
+  "Flags": 2147483648,
+  "LastLedgerSequence": 99502897,
+  "Memos": [
+    {
+      "Memo": {
+        "MemoData": "414D4D2063726561746520696E69746961746564207669612058506D61726B65742E636F6D"
+      }
+    }
+  ],
+  "Sequence": 94041760,
+  "SourceTag": 20221212,
+  "TradingFee": 1000,
+  "TransactionType": "AMMCreate",
 }
 ```
+
+{% tx-example txid="E4CC45E28421618FFEB1920B8FE152EAAB70489BD9AD52FEF24D58389C011C5E" /%}
 
 {% raw-partial file="/docs/_snippets/tx-fields-intro.md" /%}
 

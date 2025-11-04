@@ -23,7 +23,6 @@ The following is a list of [amendments](../docs/concepts/networks-and-servers/am
 |:----------------------------------|:------------------------------------------|:-------------------------------|
 | [Hooks][]                         | {% badge %}In Development: TBD{% /badge %} | [XRPL Hooks](https://hooks.xrpl.org/) |
 | [InvariantsV1_1][]                | {% badge %}In Development: TBD{% /badge %} |  |
-| [OwnerPaysFee][]                  | {% badge %}In Development: TBD{% /badge %} |  |
 | [SingleAssetVault][]              | {% badge %}In Development: TBD{% /badge %} | [Single Asset Vault (Ripple Opensource)](https://opensource.ripple.com/docs/xls-65d-single-asset-vault) |
 
 {% admonition type="success" name="Tip" %}
@@ -41,6 +40,7 @@ The following is a list of known [amendments](../docs/concepts/networks-and-serv
 | [fixNFTokenDirV1][]               | v1.9.1     | {% badge %}Obsolete: To Be Removed{% /badge %} |
 | [NonFungibleTokensV1][]           | v1.9.0     | {% badge %}Obsolete: To Be Removed{% /badge %} |
 | [CryptoConditionsSuite][]         | v0.60.0    | {% badge %}Obsolete: To Be Removed{% /badge %} |
+| [OwnerPaysFee][]                  | v0.33.0    | {% badge href="https://xrpl.org/blog/2017/rippled-0.80.0" %}Obsolete: Removed in v0.80.0{% /badge %} |
 | [SHAMapV2][]                      | v0.32.1    | {% badge href="https://xrpl.org/blog/2019/rippled-1.4.0.html" %}Obsolete: Removed in v1.4.0{% /badge %} |
 | [Tickets][]                       | v0.30.1    | {% badge href="https://xrpl.org/blog/2018/rippled-0.90.0.html" %}Obsolete: Removed in v0.90.0{% /badge %} |
 | [SusPay][]                        | v0.31.0    | {% badge href="https://xrpl.org/blog/2017/ticksize-voting.html#upcoming-features" %}Obsolete: Removed in v0.60.0{% /badge %} |
@@ -109,7 +109,7 @@ For details, see the [XLS-73: AMMClawback specification](https://github.com/XRPL
 | Default Vote (Latest stable release) | No |
 | Pre-amendment functionality retired? | No |
 
-Allows multiple transactions to be bundled into a batch that's processed all together. Standard: [XLS-56d](https://github.com/XRPLF/XRPL-Standards/tree/master/XLS-0056d-batch)
+Allows multiple transactions to be bundled into a batch that's processed all together. Standard: [XLS-56](https://github.com/XRPLF/XRPL-Standards/tree/master/XLS-0056-batch)
 
 
 ### CheckCashMakesTrustLine
@@ -453,7 +453,7 @@ A transaction remains in the queue until one of the following happens:
 | Default Vote (Latest stable release) | Yes |
 | Pre-amendment functionality retired? | Yes |
 
-Correctly implements a limit on [transfer fees](../docs/concepts/tokens/transfer-fees.md) to a 100% fee, represented by a maximum `TransferRate` value of `2000000000`. (A 100% fee in this case means you must send 2 units of the token for every 1 unit you want to deliver.) Without the amendment, the effective limit is a `TransferRate` value of 2<sup>32</sup>-1, for approximately a 329% fee.
+Correctly implements a limit on [transfer fees](../docs/concepts/tokens/fungible-tokens/transfer-fees.md) to a 100% fee, represented by a maximum `TransferRate` value of `2000000000`. (A 100% fee in this case means you must send 2 units of the token for every 1 unit you want to deliver.) Without the amendment, the effective limit is a `TransferRate` value of 2<sup>32</sup>-1, for approximately a 329% fee.
 
 With this amendment enabled, an [AccountSet][] transaction that attempts to set `TransferRate` higher than `2000000000` fails with the result code `temBAD_TRANSFER_RATE`. Any existing `TransferRate` which was set to a higher value under the previous rules continues to apply at the higher rate.
 
@@ -714,7 +714,7 @@ Fixes two bugs in Automated Market Maker (AMM) transaction processing:
 | Amendment    | fixAMMv1_3 |
 |:-------------|:-----------|
 | Amendment ID | 7CA70A7674A26FA517412858659EBC7EDEEF7D2D608824464E6FDEFD06854E14 |
-| Status       | Open for Voting |
+| Status       | Enabled |
 | Default Vote (Latest stable release) | No |
 | Pre-amendment functionality retired? | No |
 
@@ -807,7 +807,7 @@ Fixes two bugs relating to the handling of NFT transfer fees and trust lines:
 | Amendment    | fixEnforceNFTokenTrustlineV2 |
 |:-------------|:-----------------------------|
 | Amendment ID | B32752F7DCC41FB86534118FC4EEC8F56E7BD0A7DB60FD73F93F257233C08E3A |
-| Status       | Open for Voting |
+| Status       | Enabled |
 | Default Vote (Latest stable release) | No |
 | Pre-amendment functionality retired? | No |
 
@@ -1052,7 +1052,7 @@ See [Issue 4373](https://github.com/XRPLF/rippled/issues/4373).
 | Amendment    | fixPayChanCancelAfter |
 |:-------------|:----------------------|
 | Amendment ID | D3456A862DC07E382827981CA02E21946E641877F19B8889031CC57FDCAC83E2 |
-| Status       | Open for Voting |
+| Status       | Enabled |
 | Default Vote (Latest stable release) | No |
 | Pre-amendment functionality retired? | No |
 
@@ -1379,7 +1379,7 @@ This amendment adds several new invariants to protect the ledger against bugs in
 | Amendment    | MPTokensV1 |
 |:-------------|:-----------|
 | Amendment ID | 950AE2EA4654E47F04AA8739C0B214E242097E802FD372D24047A89AB1F5EC38 |
-| Status       | Open for Voting |
+| Status       | Enabled |
 | Default Vote (Latest stable release) | No |
 | Pre-amendment functionality retired? | No |
 
@@ -1544,11 +1544,11 @@ It has no other effects.
 | Amendment    | OwnerPaysFee |
 |:-------------|:-------------|
 | Amendment ID | 9178256A980A86CF3D70D0260A7DA6402AAFE43632FDBCB88037978404188871 |
-| Status       | In Development |
+| Status       | Obsolete |
 | Default Vote (Latest stable release) | N/A |
 | Pre-amendment functionality retired? | No |
 
-Fixes an inconsistency in the way [transfer fees](../docs/concepts/tokens/transfer-fees.md) are calculated between [OfferCreate](../docs/references/protocol/transactions/types/offercreate.md) and [Payment](../docs/references/protocol/transactions/types/payment.md) transaction types. Without this amendment, the holder of the token pays the transfer fee if an offer is executed in offer placement, but the initial sender of a transaction pays the transfer fees for offers that are executed as part of payment processing. With this amendment, the holder of the token always pays the transfer fee, regardless of whether the offer is executed as part of a Payment or an OfferCreate transaction. Offer processing outside of payments is unaffected.
+Fixes an inconsistency in the way [transfer fees](../docs/concepts/tokens/fungible-tokens/transfer-fees.md) are calculated between [OfferCreate](../docs/references/protocol/transactions/types/offercreate.md) and [Payment](../docs/references/protocol/transactions/types/payment.md) transaction types. Without this amendment, the holder of the token pays the transfer fee if an offer is executed in offer placement, but the initial sender of a transaction pays the transfer fees for offers that are executed as part of payment processing. With this amendment, the holder of the token always pays the transfer fee, regardless of whether the offer is executed as part of a Payment or an OfferCreate transaction. Offer processing outside of payments is unaffected.
 
 This Amendment requires the [Flow Amendment](#flow) to be enabled.
 
@@ -1584,7 +1584,7 @@ For more information, see the [Payment Channels Tutorial](../docs/tutorials/how-
 
 Allows accounts to delegate some permissions to other accounts.
 
-Specification: [XLS-75](https://github.com/XRPLF/XRPL-Standards/tree/master/XLS-0075d-permission-delegation).
+Specification: [XLS-75](https://github.com/XRPLF/XRPL-Standards/tree/master/XLS-0075-permission-delegation).
 
 
 ### PermissionedDEX
@@ -1762,10 +1762,23 @@ Introduces a `TickSize` field to accounts, which can be set with the [AccountSet
 | Default Vote (Latest stable release) | No |
 | Pre-amendment functionality retired? | No |
 
-Extends the existing Escrow functionality to support escrowing issued tokens or MPTs.
+Extends escrow functionality to fungible tokens, enabling Trust Line Tokens and Multi-Purpose Tokens (MPTs) to be held in escrow. Issuers can control whether their tokens can be escrowed through flags. To issue Trust Line Tokens, issuers must enable the **Allow TrustLine Locking** flag on their account, or the **Can Escrow** and **Can Transfer** flags for an MPT issuance.
 
-Specification: [XLS-85](https://github.com/XRPLF/XRPL-Standards/pull/272/)
+Modifies existing transactions:
 
+- EscrowCreate - Can now escrow fungible tokens in addition to XRP.
+- EscrowFinish - Can now deliver escrowed fungible tokens to recipients.
+- EscrowCancel - Can now return escrowed fungible tokens to senders.
+- AccountSet - Can now enable the **Allow Trust Line Locking** flag to allow Trust Line Tokens issued by an account to be escrowed.
+
+Updates existing ledger entry types:
+
+- Escrow - Adds support for fungible token amounts and two new fields; `TransferRate` and `IssuerNode`.
+- MPToken - Adds optional `LockedAmount` field to track tokens in escrow.
+- MPTokenIssuance - Adds optional `LockedAmount` field to track tokens in escrow.
+- AccountRoot - Adds **Allow Trust Line Locking** flag.
+
+Specification: [XLS-85](https://xls.xrpl.org/xls/XLS-0085-token-escrow.html)
 
 ### TrustSetAuth
 [TrustSetAuth]: #trustsetauth

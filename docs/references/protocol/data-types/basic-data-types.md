@@ -28,7 +28,7 @@ Each closed [Ledger](../ledger-data/index.md) has a [Ledger Index][] and a [Hash
 
 
 ### Hash Prefixes
-[[Source]](https://github.com/XRPLF/rippled/blob/master/src/ripple/protocol/HashPrefix.h "Source")
+[[Source]](https://github.com/XRPLF/rippled/blob/master/include/xrpl/protocol/HashPrefix.h "Source")
 
 In many cases, the XRP Ledger prefixes an object's binary data with a 4-byte code before calculating its hash, so that objects of different types have different hashes even if their binary formats are the same. The existing 4-byte codes are structured as three alphabetic characters, encoded as ASCII, followed by a zero byte.
 
@@ -99,11 +99,11 @@ Many API methods require you to specify an instance of the ledger, with the data
 
 There is also a deprecated `ledger` parameter which accepts any of the above three formats. *Do not* use this parameter; it may be removed without further notice.
 
-If you do not specify a ledger, the server decides which ledger to use to serve the request. By default, the server chooses the `current` (in-progress) ledger. In [Reporting Mode](../../../concepts/networks-and-servers/rippled-server-modes.md#reporting-mode), the server uses the most recent validated ledger instead. Do not provide more than one field specifying ledgers.
+If you do not specify a ledger, the server decides which ledger to use to serve the request. By default, peer-to-peer servers chooses the `current` (in-progress) ledger. Clio servers use the most recent validated ledger instead. Do not provide more than one field specifying ledgers.
 
 {% admonition type="info" name="Note" %}Do not rely on the default behavior for specifying a ledger; it is subject to change. Always specify a ledger version in the request if you can.{% /admonition %}
 
-Reporting Mode does not record ledger data until it has been validated. If you make a request to a Reporting Mode server for the `current` or `closed` ledger, the server forwards the request to a P2P Mode server. If you request a ledger index or hash that is not validated, a Reporting Mode server responds with a `lgrNotFound` error.
+Clio servers only record validated ledger data. If you make a request to a Clio server for the `current` or `closed` ledger, the server forwards the request to a P2P Mode server. If you request a ledger index or hash that is not validated, Clio responds with a `lgrNotFound` error.
 
 
 ## Specifying Currency Amounts
