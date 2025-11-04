@@ -8,7 +8,7 @@ labels:
 
 Use this transaction to update a mutable property for a Multi-purpose Token. The transaction flags determine which change(s) to apply.
 
-_(Requires the [MPTokensV1 amendment][] {% not-enabled /%}.)_
+{% amendment-disclaimer name="MPTokensV1" /%}
 
 ## Example
 
@@ -27,7 +27,7 @@ _(Requires the [MPTokensV1 amendment][] {% not-enabled /%}.)_
 
 | Field               | JSON Type            | [Internal Type][] | Required? | Description |
 |:--------------------|:---------------------|:------------------|:----------|-------------|
-| `DomainID`          | String - [Hash][]    | UInt256           | No        | The ledger entry ID of a permissioned domain that will manage access to the MPT. An empy value or `0` will remove permissioned domain access management. Any accounts that lose access to the MPT because of `DomainID` updates--unless explicitly authorized by the MPT issuer--lose the ability to send or receive MPTs they already hold. The `tfMPTRequireAuth` flag must have been set in the `MPTokenIssuanceCreate` transaction to use permissioned domains. _(Requires the [PermissionedDomains amendment][] and [SingleAssetVault amendment][])_ |
+| `DomainID`          | String - [Hash][]    | UInt256           | No        | The ledger entry ID of a permissioned domain that will manage access to the MPT. An empy value or `0` will remove permissioned domain access management. Any accounts that lose access to the MPT because of `DomainID` updates--unless explicitly authorized by the MPT issuer--lose the ability to send or receive MPTs they already hold. The `tfMPTRequireAuth` flag must have been set in the `MPTokenIssuanceCreate` transaction to use permissioned domains.<br>{% amendment-disclaimer name="PermissionedDomains" /%}<br>{% amendment-disclaimer name="SingleAssetVault" /%} |
 | `MPTokenIssuanceID` | String - Hexadecimal | UInt192           | Yes       | The identifier of the `MPTokenIssuance` to update. |
 | `Holder`            | String - [Address][] | AccountID         | No        | An individual token holder. If provided, apply changes to the given holder's balance of the given MPT issuance. If omitted, apply to all accounts holding the given MPT issuance. |
 
@@ -46,8 +46,11 @@ Besides errors that can occur for all transactions, {% $frontmatter.seo.title %}
 
 | Error Code                | Description |
 |:--------------------------|:------------|
-| `tecNO_PERMISSION`        | You are trying to lock or unlock an MPT, but the `tfMPTCanLock` flag wasn't set in the `MPTokenIssuanceCreate` transaction. | 
-| `temDISABLED`             | Either the `PermissionedDomains` or `SingleAssetVault` amendment is disabled. |
-| `temMALFORMED`            | You specified a `DomainID` and `Holder` value. You can only set one or the other in a single transaction. You can also receive this error if the transaction isn't changing anything; the transaction must either update a flag or modify the `DomainID`. |
+| `temDISABLED`             | The `MPTokensV1` amendment is disabled. You will also receive this error if you include a `DomainID` field in the transaction, but the `PermissionedDomains` and `SingleAssetVault` amendments are both disabled. |
+| `tecNO_DELEGATE_PERMISSION` | You are attempting to use a delegate account with insufficient permissions to submit this transaction. |
+| `tecNO_DST`               | The account specified in the `Holder` field doesn't exist. |
+| `tecNO_PERMISSION`        | - The `lsfMPTCanLock` flag isn't enabled, but you are attempting to lock or unlock an MPT.<br>- The `SingleAssetVault` amendment is disabled and you're trying to modify a `DomainID` field. | 
+| `temMALFORMED`            | - You specified a `DomainID` and `Holder` value--only one can be set in a single transaction.<br>- You specified the same account for both `Acount` and `Holder`.<br>- The transaction isn't changing anything; it must either update a flag or modify the `DomainID`. |
+| `tecOBJECT_NOT_FOUND`    | The specified `MPToken`, `MPTokenIssuance`, or `PermissionedDomain` ledger entry doesn't exist. |
 
 {% raw-partial file="/docs/_snippets/common-links.md" /%}
