@@ -1,7 +1,6 @@
 import json
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, UTC
 from time import sleep
-from os import urandom
 
 from xrpl.clients import JsonRpcClient
 from xrpl.models import EscrowCreate, EscrowFinish
@@ -21,8 +20,8 @@ destination_address = generate_faucet_wallet(client, debug=True).address
 
 # Set the escrow finish time ------------------------------------------------
 delay = 30
-finish_after = datetime.now() + timedelta(seconds=delay)
-print("This escrow will expire after", finish_after)
+finish_after = datetime.now(tz=UTC) + timedelta(seconds=delay)
+print("This escrow will mature after", finish_after)
 finish_after_rippletime = datetime_to_ripple_time(finish_after)
 
 # Send EscrowCreate transaction ---------------------------------------------
@@ -45,6 +44,7 @@ if result_code != "tesSUCCESS":
 
 # Save the sequence number so you can identify the escrow later
 escrow_seq = response.result["tx_json"]["Sequence"]
+print(f"Escrow sequence is {escrow_seq}.")
 
 # Wait for the escrow to be finishable --------------------------------------
 sleep(delay)
@@ -68,7 +68,7 @@ while not escrow_ready:
         sleep(time_difference)
 
 
-# Send the EscrowFinish transaction -----------------------------------------
+# Send EscrowFinish transaction ---------------------------------------------
 escrow_finish = EscrowFinish(
     account=wallet.address,
     owner=wallet.address,

@@ -26,7 +26,7 @@ To complete this tutorial, you should:
 
 ## Source Code
 
-You can find the complete source code for this tutorial's examples in the {% repo-link path="_code-samples/escrow/send-timed-escrow.js" %}code samples section of this website's repository{% /repo-link %}.
+You can find the complete source code for this tutorial's examples in the {% repo-link path="_code-samples/escrow/" %}code samples section of this website's repository{% /repo-link %}.
 
 ##  Steps
 
@@ -34,21 +34,34 @@ You can find the complete source code for this tutorial's examples in the {% rep
 
 {% tabs %}
 {% tab label="JavaScript" %}
-From the code sample folder, use npm to install dependencies:
+From the code sample folder, use `npm` to install dependencies:
 
 ```sh
 npm i
+```
+{% /tab %}
+
+{% tab label="Python" %}
+From the code sample folder, set up a virtual environment and use `pip` to install dependencies:
+
+```sh
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
 ```
 {% /tab %}
 {% /tabs %}
 
 ### 2. Set up client and account
 
-To get started, import the client library and instantiate an API client. For this tutorial, you also need one account, which you can get from the faucet.
+To get started, import the client library and instantiate an API client. For this tutorial, you also need one account, which you can get from the faucet. You also need the address of another account to send the escrow to. You can fund a second account using the faucet, or use the address of an existing account like the faucet.
 
 {% tabs %}
 {% tab label="JavaScript" %}
 {% code-snippet file="/_code-samples/escrow/js/send-timed-escrow.js" language="js" before="// Set the escrow finish time" /%}
+{% /tab %}
+{% tab label="Python" %}
+{% code-snippet file="/_code-samples/escrow/py/send_timed_escrow.py" language="py" before="# Set the escrow finish time" /%}
 {% /tab %}
 {% /tabs %}
 
@@ -59,6 +72,10 @@ To make a timed escrow, you need to set the maturity time of the escrow, which i
 {% tabs %}
 {% tab label="JavaScript" %}
 {% code-snippet file="/_code-samples/escrow/js/send-timed-escrow.js" language="js" from="// Set the escrow finish time" before="// Send EscrowCreate transaction" /%}
+{% /tab %}
+
+{% tab label="Python" %}
+{% code-snippet file="/_code-samples/escrow/py/send_timed_escrow.py" language="py" from="# Set the escrow finish time" before="# Send EscrowCreate transaction" /%}
 {% /tab %}
 {% /tabs %}
 
@@ -73,12 +90,24 @@ To send the escrow, construct an [EscrowCreate transaction][] and then submit it
 {% tabs %}
 {% tab label="JavaScript" %}
 {% code-snippet file="/_code-samples/escrow/js/send-timed-escrow.js" language="js" from="// Send EscrowCreate transaction" before="// Save the sequence number" /%}
+{% /tab %}
+
+{% tab label="Python" %}
+{% code-snippet file="/_code-samples/escrow/py/send_timed_escrow.py" language="py" from="# Send EscrowCreate transaction" before="# Save the sequence number" /%}
+{% /tab %}
+{% /tabs %}
 
 {% admonition type="info" name="Note" %}To give the escrow an expiration time, add a `CancelAfter` field to the transaction. An expiration time is optional for timed XRP escrows but required for token escrows. This time must be after the maturity time.{% /admonition %}
 
 Save the sequence number of the EscrowCreate transaction. (In this example, the sequence number is autofilled.) You need this sequence number to identify the escrow when you want to finish (or cancel) it later.
 
+{% tabs %}
+{% tab label="JavaScript" %}
 {% code-snippet file="/_code-samples/escrow/js/send-timed-escrow.js" language="js" from="// Save the sequence number" before="// Wait for the escrow" /%}
+{% /tab %}
+
+{% tab label="Python" %}
+{% code-snippet file="/_code-samples/escrow/py/send_timed_escrow.py" language="py" from="# Save the sequence number" before="# Wait for the escrow" /%}
 {% /tab %}
 {% /tabs %}
 
@@ -95,6 +124,10 @@ JavaScript doesn't have a native `sleep(...)` function, but you can implement on
 
 {% code-snippet file="/_code-samples/escrow/js/send-timed-escrow.js" language="js" from="/* Sleep function" before="// Check if escrow can be finished" /%}
 {% /tab %}
+
+{% tab label="Python" %}
+{% code-snippet file="/_code-samples/escrow/py/send_timed_escrow.py" language="py" from="# Wait for the escrow" before="# Check if escrow can be finished" /%}
+{% /tab %}
 {% /tabs %}
 
 At this point, the escrow should be mature, but that depends on the official close time of the previous ledger. Ledger close times can vary based on the consensus process, and [are rounded](../../../../concepts/ledgers/ledger-close-times.md) by up to 10 seconds. To account for this variance, use an approach such as the following:
@@ -106,6 +139,10 @@ At this point, the escrow should be mature, but that depends on the official clo
 {% tabs %}
 {% tab label="JavaScript" %}
 {% code-snippet file="/_code-samples/escrow/js/send-timed-escrow.js" language="js" from="// Check if escrow can be finished" before="// Send EscrowFinish transaction" /%}
+{% /tab %}
+
+{% tab label="Python" %}
+{% code-snippet file="/_code-samples/escrow/py/send_timed_escrow.py" language="py" from="# Check if escrow can be finished" before="# Send EscrowFinish transaction" /%}
 {% /tab %}
 {% /tabs %}
 
@@ -119,15 +156,17 @@ Now that the escrow is mature, you can finish it. Construct an [EscrowFinish tra
 {% tab label="JavaScript" %}
 {% code-snippet file="/_code-samples/escrow/js/send-timed-escrow.js" language="js" from="// Send EscrowFinish transaction" /%}
 {% /tab %}
+
+{% tab label="Python" %}
+{% code-snippet file="/_code-samples/escrow/py/send_timed_escrow.py" language="py" from="# Send EscrowFinish transaction" /%}
+{% /tab %}
 {% /tabs %}
 
 
 ## See Also
 
 - **Concepts:**
-    - [What is XRP?](../../../../introduction/what-is-xrp.md)
-    - [Payment Types](../../../../concepts/payment-types/index.md)
-        - [Escrow](../../../../concepts/payment-types/escrow.md)
+    - [Escrow](../../../../concepts/payment-types/escrow.md)
 - **Tutorials:**
     - [Send XRP](../../send-xrp.md)
     - [Look Up Transaction Results](../../../../concepts/transactions/finality-of-results/look-up-transaction-results.md)
@@ -136,8 +175,6 @@ Now that the escrow is mature, you can finish it. Construct an [EscrowFinish tra
     - [EscrowCancel transaction][]
     - [EscrowCreate transaction][]
     - [EscrowFinish transaction][]
-    - [account_objects method][]
-    - [tx method][]
     - [Escrow ledger object](../../../../references/protocol/ledger-data/ledger-entry-types/escrow.md)
 
 {% raw-partial file="/docs/_snippets/common-links.md" /%}

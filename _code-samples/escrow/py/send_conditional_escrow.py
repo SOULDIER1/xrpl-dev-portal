@@ -1,5 +1,5 @@
 import json
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, UTC
 from os import urandom
 
 from cryptoconditions import PreimageSha256
@@ -28,7 +28,7 @@ print("Fulfillment:", fulfillment_hex)
 
 # Set the escrow expiration -------------------------------------------------
 cancel_delay = 300
-cancel_after = datetime.now() + timedelta(seconds=cancel_delay)
+cancel_after = datetime.now(tz=UTC) + timedelta(seconds=cancel_delay)
 print("This escrow will expire after", cancel_after)
 cancel_after_rippletime = datetime_to_ripple_time(cancel_after)
 
