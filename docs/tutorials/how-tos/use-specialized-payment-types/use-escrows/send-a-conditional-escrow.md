@@ -15,6 +15,7 @@ This tutorial shows how to escrow XRP. If the [TokenEscrow amendment][] is enabl
 By following this tutorial, you should learn how to:
 
 - Convert a timestamp into the XRP Ledger's native format.
+- Create a crypto-condition and fulfillment in the format needed for the XRP Ledger.
 - Create and finish an escrow.
 
 ## Prerequisites
