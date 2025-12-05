@@ -1,13 +1,66 @@
 ---
-html: cancel-an-expired-escrow.html
-parent: use-escrows.html
 seo:
     description: Cancel an expired escrow.
 labels:
   - Escrow
-  - Smart Contracts
 ---
 # Cancel an Expired Escrow
+
+This tutorial demonstrates how to cancel an [escrow](../../../../concepts/payment-types/escrow.md) that has passed its expiration time. You can use this to reclaim funds that you escrowed but were never claimed by the recipient.
+
+## Goals
+
+By following this tutorial, you should learn how to:
+
+- Compare a timestamp from the ledger to the current time.
+- Cancel an expired escrow.
+
+## Prerequisites
+
+To complete this tutorial, you should:
+
+- Have a basic understanding of the XRP Ledger.
+- Have an XRP Ledger client library, such as **xrpl.js**, installed.
+- Already know how to send a [timed](./send-a-timed-escrow.md) or [conditional](./send-a-conditional-escrow.md) escrow.
+
+## Source Code
+
+You can find the complete source code for this tutorial's examples in the {% repo-link path="_code-samples/escrow/" %}code samples section of this website's repository{% /repo-link %}.
+
+##  Steps
+
+### 1. Install dependencies
+
+{% tabs %}
+{% tab label="JavaScript" %}
+From the code sample folder, use `npm` to install dependencies:
+
+```sh
+npm i
+```
+{% /tab %}
+
+{% tab label="Python" %}
+From the code sample folder, set up a virtual environment and use `pip` to install dependencies:
+
+```sh
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```
+{% /tab %}
+{% /tabs %}
+
+***TODO: finish refactoring***
+
+
+
+
+
+
+
+
+
 
 An escrow in the XRP Ledger is expired when its `CancelAfter` time is lower than the `close_time` of the latest validated ledger. Escrows without a `CancelAfter` time never expire.
 

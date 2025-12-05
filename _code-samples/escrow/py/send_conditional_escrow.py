@@ -13,10 +13,10 @@ from xrpl.wallet import generate_faucet_wallet
 client = JsonRpcClient("https://s.altnet.rippletest.net:51234")
 print("Funding new wallet from faucet...")
 wallet = generate_faucet_wallet(client, debug=True)
-destination_address = "rPT1Sjq2YGrBMTttX4GZHjKu9dyfzbpAYe" # Testnet faucet
+#destination_address = "rPT1Sjq2YGrBMTttX4GZHjKu9dyfzbpAYe" # Testnet faucet
 # Alternative: Get another account to send the escrow to. Use this if you get
 # a tecDIR_FULL error trying to create escrows to the Testnet faucet.
-# destination_address = generate_faucet_wallet(client, debug=True).address
+destination_address = generate_faucet_wallet(client, debug=True).address
 
 # Create the crypto-condition for release -----------------------------------
 preimage = urandom(32)

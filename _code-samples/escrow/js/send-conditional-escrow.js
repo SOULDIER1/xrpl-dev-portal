@@ -7,10 +7,10 @@ await client.connect()
 
 console.log('Funding new wallet from faucet...')
 const { wallet } = await client.fundWallet()
-const destination_address = 'rPT1Sjq2YGrBMTttX4GZHjKu9dyfzbpAYe' // Testnet faucet
+// const destination_address = 'rPT1Sjq2YGrBMTttX4GZHjKu9dyfzbpAYe' // Testnet faucet
 // Alternative: Get another account to send the escrow to. Use this if you get
 // a tecDIR_FULL error trying to create escrows to the Testnet faucet.
-// const destination_address = (await client.fundWallet()).wallet.address
+const destination_address = (await client.fundWallet()).wallet.address
 
 // Create the crypto-condition for release ----------------------------------
 const preimage = randomBytes(32)

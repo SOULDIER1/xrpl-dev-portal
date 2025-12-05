@@ -1,3 +1,6 @@
+/docs/tutorials/how-tos/use-specialized-payment-types/use-escrows/use-an-escrow-as-a-smart-contract:
+    to: /docs/tutorials/how-tos/use-specialized-payment-types/use-escrows/send-a-conditional-escrow
+    type: 301
 /docs/infrastructure/installation/rippled-1-3-migration-instructions/:
     to: /docs/infrastructure/installation/
     type: 301
@@ -2335,6 +2338,9 @@ code_of_conduct.ja:
     type: 301
 
 # Japanese
+/ja/docs/tutorials/how-tos/use-specialized-payment-types/use-escrows/use-an-escrow-as-a-smart-contract:
+    to: /ja/docs/tutorials/how-tos/use-specialized-payment-types/use-escrows/send-a-conditional-escrow
+    type: 301
 /ja/docs/infrastructure/installation/rippled-1-3-migration-instructions/:
     to: /ja/docs/infrastructure/installation/
     type: 301
