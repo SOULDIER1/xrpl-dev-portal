@@ -41,7 +41,7 @@ if result_code != "tesSUCCESS":
     print(f"EscrowCreate failed with result code {result_code}")
     exit(1)
 
-# Wait for the escrow to be finishable --------------------------------------
+# Wait for the escrow to expire ---------------------------------------------
 # Since ledger close times can be rounded by up to 10 seconds, wait an extra
 # 10 seconds to make sure the escrow has officially expired.
 sleep(cancel_delay + 10)
@@ -100,13 +100,16 @@ if not response.is_successful():
 if response.result["tx_json"]["TransactionType"] == "EscrowCreate":
     # Save this sequence number for canceling the escrow
     escrow_seq = response.result["tx_json"]["Sequence"]
+    if escrow_seq == 0:
+        # This transaction used a Ticket, so use the TicketSequence instead.
+        escrow_seq = response.result["tx_json"]["TicketSequence"]
 else:
     # Currently, this is impossible since no current transaction can update
     # an escrow without finishing or canceling it. But in the future, if
     # that becomes possible, you would have to look at the transaction
     # metadata to find the previous transaction and repeat until you found
     # the transaction that created the escrow.
-    print("The escrow's previous transaction wasn't Create?!")
+    print("The escrow's previous transaction wasn't EscrowCreate!")
     exit(1)
 
 # Send EscrowCancel transaction ---------------------------------------------

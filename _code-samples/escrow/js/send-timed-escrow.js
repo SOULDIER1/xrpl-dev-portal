@@ -98,7 +98,10 @@ const response2 = await client.submitAndWait(escrowFinish, {
 })
 console.log(JSON.stringify(response2.result, null, 2))
 if (response2.result.meta.TransactionResult === 'tesSUCCESS') {
-  console.log('Escrow finished successfully.')
+  console.log('Escrow finished successfully. Balance changes:')
+  console.log(
+    JSON.stringify(xrpl.getBalanceChanges(response2.result.meta), null, 2)
+  )
 }
 
 client.disconnect()

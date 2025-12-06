@@ -21,7 +21,7 @@ By following this tutorial, you should learn how to:
 
 To complete this tutorial, you should:
 
-- Have a basic understanding of the XRP Ledger
+- Have a basic understanding of the XRP Ledger.
 - Have an XRP Ledger client library, such as **xrpl.js**, installed.
 
 ## Source Code
@@ -154,10 +154,14 @@ Now that the escrow is mature, you can finish it. Construct an [EscrowFinish tra
 
 {% tabs %}
 {% tab label="JavaScript" %}
+In xrpl.js, you can use the [`getBalanceChanges(metadata)`](https://js.xrpl.org/functions/getBalanceChanges.html) utility to parse the validated transaction's metadata for a simplified list of balance changes.
+
 {% code-snippet file="/_code-samples/escrow/js/send-timed-escrow.js" language="js" from="// Send EscrowFinish transaction" /%}
 {% /tab %}
 
 {% tab label="Python" %}
+In xrpl-py, you can use the [`get_balance_changes(metadata)`](https://xrpl-py.readthedocs.io/en/stable/source/xrpl.utils.html#xrpl.utils.get_balance_changes) utility to parse the validated transaction's metadata for a simplified list of balance changes.
+
 {% code-snippet file="/_code-samples/escrow/py/send_timed_escrow.py" language="py" from="# Send EscrowFinish transaction" /%}
 {% /tab %}
 {% /tabs %}

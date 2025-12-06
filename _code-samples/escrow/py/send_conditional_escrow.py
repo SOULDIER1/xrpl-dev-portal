@@ -54,7 +54,7 @@ if result_code != "tesSUCCESS":
 # Save the sequence number so you can identify the escrow later
 escrow_seq = response.result["tx_json"]["Sequence"]
 
-# Send the EscrowFinish transaction -----------------------------------------
+# Send EscrowFinish transaction ---------------------------------------------
 escrow_finish = EscrowFinish(
     account=wallet.address,
     owner=wallet.address,
