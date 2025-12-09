@@ -56,7 +56,7 @@ ledger_hash = validated_ledger.result["ledger"]["ledger_hash"]
 
 # Look up escrows connected to the account ----------------------------------
 expired_escrow = None
-marker=None
+marker = None
 while True:
     try:
         response = client.request(AccountObjects(

@@ -6,7 +6,7 @@ labels:
 ---
 # Send a Timed Escrow
 
-This tutorial demonstrates how to send an [escrow](../../../../concepts/payment-types/escrow.md) whose only condition for release is that a specific time has passed. You can use this to set aside money for yourself or others so that it absolutely cannot be used until the specified time.
+This tutorial shows how to send an [escrow](../../../../concepts/payment-types/escrow.md) whose only condition for release is that a specific time has passed. You can use this to set aside money for yourself or others so that it absolutely cannot be used until the specified time.
 
 This tutorial shows how to escrow XRP. If the [TokenEscrow amendment][] is enabled, you can also escrow tokens.
 
