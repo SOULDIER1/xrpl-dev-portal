@@ -60,6 +60,9 @@ export default function Home() {
       {nfts.length > 0 && (
         <div style={{ marginTop: 16 }}>
           <h2>Prestige Score: {prestige}</h2>
+          <p style={{ margin: 0, color: "#666" }}>
+            Prestige Score = Base Realm Value (Aurora 100, Prime 150, Shadow 200) + 10 per coin
+          </p>
         </div>
       )}
 
