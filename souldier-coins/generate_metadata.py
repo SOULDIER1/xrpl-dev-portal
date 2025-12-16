@@ -63,7 +63,14 @@ def main():
                 "global_coin_id": global_id,
                 "realm": r["realm"],
                 "chain_origin": CHAIN_ORIGIN,
-                "project": PROJECT_NAME
+                "project": PROJECT_NAME,
+                "provenance": {
+                    "inspiration": "Honoring the legacy, excellence, and service of the Tuskegee Airmen",
+                    "creation_method": "Original digital artwork and AI-assisted rendering",
+                    "authenticity_statement": "No identifiable real individuals depicted; symbolic representation only"
+                },
+                "issued_by": "salutetosouldiers.blockchain",
+                "collection_policy": "Non-fungible commemorative digital asset"
             }
 
             file_path = os.path.join(r["folder"], f"{edition}.json")

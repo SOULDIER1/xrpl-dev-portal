@@ -29,5 +29,12 @@
   "global_coin_id": "SCT-AURORA-0007",
   "realm": "Aurora",
   "chain_origin": "XRPL-Testnet",
-  "project": "Souldier Coin Tuskegee"
+  "project": "Souldier Coin Tuskegee",
+  "provenance": {
+    "inspiration": "Honoring the legacy, excellence, and service of the Tuskegee Airmen",
+    "creation_method": "Original digital artwork and AI-assisted rendering",
+    "authenticity_statement": "No identifiable real individuals depicted; symbolic representation only"
+  },
+  "issued_by": "salutetosouldiers.blockchain",
+  "collection_policy": "Non-fungible commemorative digital asset"
 }
