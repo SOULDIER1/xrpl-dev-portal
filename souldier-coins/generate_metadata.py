@@ -71,7 +71,8 @@ def main():
                 },
                 "issued_by": "salutetosouldiers.blockchain",
                 "collection_policy": "Non-fungible commemorative digital asset",
-                "verification": "This asset is officially presented at salutetosouldiers.nft"
+                "verification": "This asset is officially presented at salutetosouldiers.nft",
+                "badges": ["Founder", "Early Supporter", "Legacy Holder"]
             }
 
             file_path = os.path.join(r["folder"], f"{edition}.json")
