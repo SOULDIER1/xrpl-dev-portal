@@ -78,6 +78,9 @@ export default function Home() {
               <p>{n.metadata?.description}</p>
               <p><b>Realm:</b> {n.metadata?.realm}</p>
               <p><b>Global ID:</b> {n.metadata?.global_coin_id}</p>
+              {n.metadata?.verification && (
+                <p><b>Verification:</b> {n.metadata.verification}</p>
+              )}
             </div>
           ))}
         </div>
