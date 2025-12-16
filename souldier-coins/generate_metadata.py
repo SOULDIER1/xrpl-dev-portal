@@ -70,7 +70,8 @@ def main():
                     "authenticity_statement": "No identifiable real individuals depicted; symbolic representation only"
                 },
                 "issued_by": "salutetosouldiers.blockchain",
-                "collection_policy": "Non-fungible commemorative digital asset"
+                "collection_policy": "Non-fungible commemorative digital asset",
+                "verification": "This asset is officially presented at salutetosouldiers.nft"
             }
 
             file_path = os.path.join(r["folder"], f"{edition}.json")
